@@ -57,6 +57,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RS485_DERE_Pin GPIO_PIN_1
+#define RS485_DERE_GPIO_Port GPIOA
+#define RS485_D_Pin GPIO_PIN_2
+#define RS485_D_GPIO_Port GPIOA
+#define RS485_R_Pin GPIO_PIN_3
+#define RS485_R_GPIO_Port GPIOA
+#define HW_0_Pin GPIO_PIN_12
+#define HW_0_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
