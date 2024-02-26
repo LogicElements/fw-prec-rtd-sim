@@ -170,29 +170,11 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_COM_MB_TIMEOUT:
       *value = conf.com.mb_timeout;
       break;
-    case MB_HOLD_CALIB_MODE:
-      *value = conf.calib.mode;
-      break;
-    case MB_HOLD_CALIB_RESERVED:
-      *value = conf.calib.reserved;
-      break;
-    case MB_HOLD_CALIB_PT_TEMPER_CORR_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_CALIB_PT_TEMPER_CORR) + 0);
-      break;
-    case MB_HOLD_CALIB_PT_TEMPER_CORR_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_CALIB_PT_TEMPER_CORR) + 1);
-      break;
-    case MB_HOLD_CALIB_RESIST_CORR_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_CALIB_RESIST_CORR) + 0);
-      break;
-    case MB_HOLD_CALIB_RESIST_CORR_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_CALIB_RESIST_CORR) + 1);
-      break;
     case MB_HOLD_RTD_MODE:
       *value = conf.rtd.mode;
       break;
-    case MB_HOLD_RTD_RESERVED:
-      *value = conf.rtd.reserved;
+    case MB_HOLD_RTD_TEMP_CALIB:
+      *value = conf.rtd.temp_calib;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       *value = conf.rtd.ntc_beta;
@@ -214,12 +196,6 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
       break;
     case MB_HOLD_RTD_TEMPERATURE_1:
       *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1);
-      break;
-    case MB_HOLD_RTD_SLEW_RATE_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_SLEW_RATE) + 0);
-      break;
-    case MB_HOLD_RTD_SLEW_RATE_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_SLEW_RATE) + 1);
       break;
 
 
@@ -280,35 +256,13 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.com.mb_timeout = value;
       id = CONF_COM_MB_TIMEOUT;
       break;
-    case MB_HOLD_CALIB_MODE:
-      conf.calib.mode = value;
-      id = CONF_CALIB_MODE;
-      break;
-    case MB_HOLD_CALIB_RESERVED:
-      conf.calib.reserved = value;
-      id = CONF_CALIB_RESERVED;
-      break;
-    case MB_HOLD_CALIB_PT_TEMPER_CORR_0:
-      *((uint16_t *)CONF_PTR(CONF_CALIB_PT_TEMPER_CORR) + 0) = value;
-      break;
-    case MB_HOLD_CALIB_PT_TEMPER_CORR_1:
-      *((uint16_t *)CONF_PTR(CONF_CALIB_PT_TEMPER_CORR) + 1) = value;
-      id = CONF_CALIB_PT_TEMPER_CORR;
-      break;
-    case MB_HOLD_CALIB_RESIST_CORR_0:
-      *((uint16_t *)CONF_PTR(CONF_CALIB_RESIST_CORR) + 0) = value;
-      break;
-    case MB_HOLD_CALIB_RESIST_CORR_1:
-      *((uint16_t *)CONF_PTR(CONF_CALIB_RESIST_CORR) + 1) = value;
-      id = CONF_CALIB_RESIST_CORR;
-      break;
     case MB_HOLD_RTD_MODE:
       conf.rtd.mode = (rtd_mode_t)value;
       id = CONF_RTD_MODE;
       break;
-    case MB_HOLD_RTD_RESERVED:
-      conf.rtd.reserved = value;
-      id = CONF_RTD_RESERVED;
+    case MB_HOLD_RTD_TEMP_CALIB:
+      conf.rtd.temp_calib = (rtd_temp_calib_t)value;
+      id = CONF_RTD_TEMP_CALIB;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       conf.rtd.ntc_beta = value;
@@ -335,13 +289,6 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
     case MB_HOLD_RTD_TEMPERATURE_1:
       *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1) = value;
       id = CONF_RTD_TEMPERATURE;
-      break;
-    case MB_HOLD_RTD_SLEW_RATE_0:
-      *((uint16_t *)CONF_PTR(CONF_RTD_SLEW_RATE) + 0) = value;
-      break;
-    case MB_HOLD_RTD_SLEW_RATE_1:
-      *((uint16_t *)CONF_PTR(CONF_RTD_SLEW_RATE) + 1) = value;
-      id = CONF_RTD_SLEW_RATE;
       break;
 
 

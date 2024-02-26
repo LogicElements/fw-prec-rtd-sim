@@ -90,14 +90,8 @@
 #define MB_HOLD_COM_MB_STOP_BITS           6u
 #define MB_HOLD_COM_MB_APPLY               7u
 #define MB_HOLD_COM_MB_TIMEOUT             8u
-#define MB_HOLD_CALIB_MODE                 9u
-#define MB_HOLD_CALIB_RESERVED             10u
-#define MB_HOLD_CALIB_PT_TEMPER_CORR_0     11u
-#define MB_HOLD_CALIB_PT_TEMPER_CORR_1     12u
-#define MB_HOLD_CALIB_RESIST_CORR_0        13u
-#define MB_HOLD_CALIB_RESIST_CORR_1        14u
 #define MB_HOLD_RTD_MODE                   100u
-#define MB_HOLD_RTD_RESERVED               101u
+#define MB_HOLD_RTD_TEMP_CALIB             101u
 #define MB_HOLD_RTD_NTC_BETA               102u
 #define MB_HOLD_RTD_NTC_STOCK_RES          103u
 #define MB_HOLD_RTD_PT_STOCK_RES           104u
@@ -105,10 +99,8 @@
 #define MB_HOLD_RTD_RESISTANCE_1           106u
 #define MB_HOLD_RTD_TEMPERATURE_0          107u
 #define MB_HOLD_RTD_TEMPERATURE_1          108u
-#define MB_HOLD_RTD_SLEW_RATE_0            109u
-#define MB_HOLD_RTD_SLEW_RATE_1            110u
 
-#define MB_HOLD_LAST      110
+#define MB_HOLD_LAST      108
 
 
 /** @} */

@@ -11,6 +11,7 @@
 #include "system_msp.h"
 #include "configuration.h"
 
+
 /* Private defines -----------------------------------------------------------*/
 /**
  * Definition of empty value in external flash

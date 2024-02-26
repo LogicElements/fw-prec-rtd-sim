@@ -78,18 +78,13 @@
 #define CONF_COM_MB_ADDRESS        0x03004111u  ///< Modbus slave address
 #define CONF_COM_MB_APPLY          0x03006151u  ///< Apply modbus parameters
 #define CONF_COM_MB_TIMEOUT        0x03008171u  ///< Modbus timeout
-#define CONF_CALIB_MODE            0x04000151u  ///< Calibration mode
-#define CONF_CALIB_RESERVED        0x04002151u  ///< Reserved
-#define CONF_CALIB_PT_TEMPER_CORR  0x04004272u  ///< PT temperature correction
-#define CONF_CALIB_RESIST_CORR     0x04008272u  ///< Resistance correction
 #define CONF_RTD_MODE              0x05000550u  ///< Emulation mode
-#define CONF_RTD_RESERVED          0x05001150u  ///< Reserved
+#define CONF_RTD_TEMP_CALIB        0x05001550u  ///< Temperature calibration
 #define CONF_RTD_NTC_BETA          0x05002151u  ///< NTC beta
 #define CONF_RTD_NTC_STOCK_RES     0x05004151u  ///< NTC stock resistance
 #define CONF_RTD_PT_STOCK_RES      0x05006151u  ///< Platinum stock resistance
-#define CONF_RTD_RESISTANCE        0x05008252u  ///< Set resistance
+#define CONF_RTD_RESISTANCE        0x05008152u  ///< Set resistance
 #define CONF_RTD_TEMPERATURE       0x0500C252u  ///< Temperature
-#define CONF_RTD_SLEW_RATE         0x05010252u  ///< Temperature slew rate
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -122,14 +117,14 @@
 #define CONF_REG_LOGGER_NUMBER     (0)
 #define CONF_REG_CALIB_NUMBER      (1)
 #define CONF_REG_SYNCED_NUMBER     (0)
-#define CONF_REG_FLASH_NUMBER      (7)
+#define CONF_REG_FLASH_NUMBER      (5)
 #define CONF_REG_LOGGER_LENGTH     (0)
 #define CONF_REG_CALIB_LENGTH      (8)
 #define CONF_REG_SYNCED_LENGTH     (0)
-#define CONF_REG_FLASH_LENGTH      (45)
+#define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_calib_t) != 12) || (sizeof(conf_reg_rtd_t) != 20) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 16) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -176,6 +171,12 @@ typedef enum
   RTD_MD_PLATINUM = 2,
 }rtd_mode_t ;
 
+typedef enum
+{
+  RTD_CALIB_OFF = 0,
+  RTD_CALIB_ON = 1,
+}rtd_temp_calib_t ;
+
 typedef struct __packed __aligned(4)
 {
   uint32_t uptime;
@@ -215,22 +216,13 @@ typedef struct __packed __aligned(4)
 
 typedef struct __packed __aligned(4)
 {
-  uint16_t mode;
-  uint16_t reserved;
-  float pt_temper_corr;
-  float resist_corr;
-}conf_reg_calib_t;
-
-typedef struct __packed __aligned(4)
-{
   rtd_mode_t mode;
-  uint8_t reserved;
+  rtd_temp_calib_t temp_calib;
   uint16_t ntc_beta;
   uint16_t ntc_stock_res;
   uint16_t pt_stock_res;
-  float resistance;
+  uint32_t resistance;
   float temperature;
-  float slew_rate;
 }conf_reg_rtd_t;
 
 typedef struct __packed __aligned(4)
@@ -245,7 +237,7 @@ typedef struct
   conf_reg_fact_t fact;
   conf_reg_firm_t firm;
   conf_reg_com_t com;
-  conf_reg_calib_t calib;
+  uint32_t res5;
   conf_reg_rtd_t rtd;
   conf_reg_dbg_t dbg;
   uint32_t res8;

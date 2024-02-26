@@ -56,10 +56,7 @@ Status_t Config_Callback(uint32_t id)
       SAT_UP(conf.com.mb_timeout, 7200);
 #endif
       break;
-    case CONF_BLOCK_ID(CONF_CALIB_MODE):
-      /* Saturation of calibration constants */
 
-      break;
 
     default:
       break;
