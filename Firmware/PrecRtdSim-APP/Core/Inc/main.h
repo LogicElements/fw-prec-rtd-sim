@@ -65,6 +65,20 @@ void Error_Handler(void);
 #define RS485_R_GPIO_Port GPIOA
 #define HW_0_Pin GPIO_PIN_12
 #define HW_0_GPIO_Port GPIOB
+#define LED_R_Pin GPIO_PIN_3
+#define LED_R_GPIO_Port GPIOB
+#define LED_G_Pin GPIO_PIN_4
+#define LED_G_GPIO_Port GPIOB
+#define RS485_ADDR4_Pin GPIO_PIN_5
+#define RS485_ADDR4_GPIO_Port GPIOB
+#define RS485_ADDR3_Pin GPIO_PIN_6
+#define RS485_ADDR3_GPIO_Port GPIOB
+#define RS485_ADDR2_Pin GPIO_PIN_7
+#define RS485_ADDR2_GPIO_Port GPIOB
+#define RS485_ADDR1_Pin GPIO_PIN_8
+#define RS485_ADDR1_GPIO_Port GPIOB
+#define RS485_ADDR0_Pin GPIO_PIN_9
+#define RS485_ADDR0_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -20,6 +20,7 @@
 #include "main.h"
 #include "adc.h"
 #include "crc.h"
+#include "i2c.h"
 #include "iwdg.h"
 #include "tim.h"
 #include "usart.h"
@@ -38,6 +39,11 @@
 #include "control.h"
 #include "flash_app.h"
 #include "led.h"
+#include "RTD_lib.h"
+#include "MAX7300.h"
+#include "RTD_Handle.h"
+#include "SHT20.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,6 +114,7 @@ int main(void)
   MX_IWDG_Init();
   MX_USART2_UART_Init();
   MX_TIM3_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
   /* Initialize all configured peripherals */
@@ -119,6 +126,10 @@ int main(void)
   Led_Init();
   Switch_Init();
   Control_Init();
+  RTD_Init();
+  MAX_Init(&hi2c2);
+  MAX_conf();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -146,7 +157,13 @@ int main(void)
       }
       FlashApp_Handle();
       System_ReloadWdg();
+
+
+       RTD_Handle();
+
     }
+
+
 
     /* USER CODE END WHILE */
 
