@@ -45,21 +45,15 @@
 	void MAX_write_bin(uint32_t b){
 
 		uint8_t cmd = 0x00;
-		uint8_t k = 0, i = 0;
-		uint8_t regist_arr[3] ={MAX_SET_12_19,MAX_SET_20_27,MAX_SET_28_31};
-		uint8_t addr = regist_arr[0];
+		uint8_t i = 0;
+		uint8_t addr = MAX_SET_12;
 
-		for (i = 0; i < 20; i++){
-
-			cmd = 0xFF&(b >> 8*k);
-
-			if (i % 8 == 0 || (i % 8 == 0 && i >=15)){
+		for (i = 0; i <= 17; i++){
+			cmd = 0x01&(b >> i);
 			HAL_I2C_Mem_Write(&hi2c2, MAX_I2C_ADDR, addr, 1, &cmd, 1, HAL_MAX_DELAY);
-			cmd = 0x00;
-			k++;
-			addr = regist_arr[k];
+			addr += 1;
 			}
-		}
 	}
+
 
 

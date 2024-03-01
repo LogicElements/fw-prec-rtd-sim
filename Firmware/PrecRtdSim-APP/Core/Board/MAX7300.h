@@ -19,9 +19,9 @@
 #define MAX_PC3_CONF  		0x0D // P23, P22, P21, P20
 #define MAX_PC4_CONF  		0x0E // P27, P26, P25, P24
 #define MAX_PC5_CONF  		0x0F //r P31, P30, P29, P28
-#define MAX_SET_12_19		0x4C
-#define MAX_SET_20_27		0x54
-#define MAX_SET_28_31		0x5C
+
+//12 -29
+#define MAX_SET_12 		0x2C
 
 
 void MAX_Init();
