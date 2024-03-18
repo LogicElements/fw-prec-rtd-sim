@@ -33,10 +33,12 @@ typedef enum SHT20_Resolution {
 
 
 
+
+
+
 void SHT20_softreset();
 void SHT20_SetResolution(SHT20_Resolution res);
 uint8_t SHT20_ReadUserReg(void);
 float SHT20_GetTemperature();
-float SHT20_GetRelativeHumidity();
 
 #endif /* INC_SHT20_H_ */

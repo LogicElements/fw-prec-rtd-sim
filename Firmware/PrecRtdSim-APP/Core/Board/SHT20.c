@@ -30,44 +30,33 @@ float SHT20_GetTemperature() {
 	uint8_t val[3] = { 0 };
 	HAL_StatusTypeDef ret;
 	int16_t raw = 0;
-	uint8_t cmd = SHT20_READ_TEMP_NOHOLD;
+	uint8_t cmd = SHT20_READ_TEMP_HOLD;
 	float temp_c;
 
-  	HAL_I2C_Master_Transmit(&hi2c2, SHT20_I2C_ADDR << 1, &cmd, 1, HAL_MAX_DELAY);
 
-  	do {
-    ret = HAL_I2C_Master_Receive(&hi2c2, SHT20_I2C_ADDR << 1, val, 3, HAL_MAX_DELAY);
+	ret = HAL_I2C_Master_Transmit(&hi2c2, SHT20_I2C_ADDR << 1, &cmd, 1, HAL_MAX_DELAY);
+
+  	if (ret != HAL_OK){
+  	return 0;
   	}
-    while (ret != HAL_OK);
 
-    raw = (val[0] << 8) | val[1];
-    temp_c =  -46.85 + 175.72*((float)raw/65536.0);
-    return temp_c;
-}
+  	else {
 
+  	ret = HAL_I2C_Master_Receive(&hi2c2, SHT20_I2C_ADDR << 1, val, 3, HAL_MAX_DELAY);
 
-/**
-* @brief: Measuring current relative humidity
-* @param: return temp_c: float, in %RH
-*/
+  	if (ret != HAL_OK){
+  	return 0;
+  	}
 
-float SHT20_GetRelativeHumidity() {
+  	else{
 
-	uint8_t val[3] = { 0 };
-	int16_t raw = 0;
-	HAL_StatusTypeDef ret;
-	uint8_t cmd = SHT20_READ_RH_NOHOLD;
-    HAL_I2C_Master_Transmit(&hi2c2, SHT20_I2C_ADDR << 1, &cmd, 1, SHT20_TIMEOUT);
+	raw = (val[0] << 8) | val[1];
+	temp_c =  -46.85 + 175.72*((float)raw/65536.0);
+	return temp_c;
 
+  	}
+  	}
 
-    do {
-    ret = HAL_I2C_Master_Receive(&hi2c2, SHT20_I2C_ADDR << 1, val, 3, SHT20_TIMEOUT);
-    }
-    while (ret != HAL_OK);
-
-
-    raw = (val[0] << 8) | val[1];
-    return -6 + 125.00 * ((float)raw / 65536.0);
 }
 
 
@@ -83,7 +72,6 @@ uint8_t SHT20_ReadUserReg(void) {
 	HAL_I2C_Master_Receive(&hi2c2, SHT20_I2C_ADDR << 1, &val, 1, SHT20_TIMEOUT);
 	return val;
 }
-
 
 /**
  * @brief Sets the measurement resolution.
