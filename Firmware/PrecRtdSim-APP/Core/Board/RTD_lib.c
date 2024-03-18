@@ -21,9 +21,9 @@
 
 typedef struct
 {
-	float switch_on_resistance;
+	uint32_t switch_on_resistance;
 	uint32_t switch_position[6];
-	float resistor_array[6];
+	uint32_t resistor_array[6];
 
 	float resistor_array_temp_calib[6];
 	uint32_t switch_position_temp_calib[6];
@@ -44,14 +44,20 @@ static RTD_t rtd_app;
 * @brief: Initialization RTD values
 */
 	void RTD_Init(){
-		// values of resistor array - implicitly soldered to the board
-		memcpy(rtd_app.resistor_array, (float[]){1.2, 9.53, 75, 590, 4700, 37400}, sizeof(rtd_app.resistor_array));
+		// values of resistor array - implicitly soldered to the board (mΩ)
+
+	    rtd_app.resistor_array[0] = 1.2e3;
+	    rtd_app.resistor_array[1] = 9.53e3;
+	    rtd_app.resistor_array[2] = 75e3;
+	    rtd_app.resistor_array[3] = 590e3;
+	    rtd_app.resistor_array[4] = 4700e3;
+	    rtd_app.resistor_array[5] = 37400e3;
 
 		// temperature coefficient of resistor array in ppm/K
 		rtd_app.temp_koef = 100;
 
-		// average analog switch on resistance of NX3L4051PW
-		rtd_app.switch_on_resistance = 0.36;
+		// average analog switch on resistance of NX3L4051PW (mΩ)
+		rtd_app.switch_on_resistance = 0.36e3;
 	}
 
 
@@ -82,26 +88,26 @@ static RTD_t rtd_app;
 		* @brief: Calculation of resistor array switch positions according to the request
 		* @param request format: uint32_t from 10 to 290000
 		*/
-		void switch_position(uint32_t request)
-		{
 
-			uint8_t multiple = 0;
-			int8_t i = 0;
+	void switch_position(uint32_t request)
+	{
+	    uint8_t multiple = 0;
+	    int8_t i = 5;
+	    float resistance = rtd_app.switch_on_resistance * 6;
+	    request *=1000;
 
-			float resistance = rtd_app.switch_on_resistance * 6;
+	    while (i >= 0 && resistance < request) {
+	        multiple = ((request - resistance) / rtd_app.resistor_array[i]);
 
-			for (i = 5; i >= 0; i--) {
-				multiple = (((float)request - resistance) / rtd_app.resistor_array[i]);
+	        if (multiple >= 7)
+	            multiple = 7;
 
-				if (multiple >= 7) multiple = 7;
+	        resistance += multiple * rtd_app.resistor_array[i];
+	        rtd_app.switch_position[i] = multiple;
 
-				resistance = resistance + multiple * rtd_app.resistor_array[i];
-				rtd_app.switch_position[i] = multiple;
-
-				if (resistance >= request) break;
-			}
-		}
-
+	        i--;
+	    }
+	}
 
 		/**
 		* @brief: Set the electrical resistance at the output of the RTD emulator according to the request
@@ -138,10 +144,9 @@ static RTD_t rtd_app;
 		int8_t i = 0;
 
 		for (i = 0; i < 6; i++) {
-			rtd_app.resistor_array_temp_calib[i] = rtd_app.resistor_array[i] * (1 + (temperature - 20.0) * temp_koef / 1000000);
+			rtd_app.resistor_array_temp_calib[i] = rtd_app.resistor_array[i] *(1 + (temperature - 20.0) * temp_koef / 1000000);
 		}
 	}
-
 
 	/**
 	* @brief: Calculation of resistor array switch positions with temperature dependence
@@ -150,28 +155,29 @@ static RTD_t rtd_app;
 	                * request format: uint32_t from 10 to 290000
 	*/
 
+
+
 	void switch_position_temp_calib(uint32_t request, float temperature, float temp_koef)
 	{
+	    uint8_t multiple = 0;
+	    int8_t i = 5;
+	    float resistance = rtd_app.switch_on_resistance * 6;
+	    request *=1000;
 
-		uint8_t multiple = 0;
-		int8_t i = 0;
+	    rezistorArrayTemperature(temperature, temp_koef);
 
-		rezistorArrayTemperature(temperature, temp_koef);
+	    while (i >= 0 && resistance < request) {
+	        multiple = ((request - resistance) / rtd_app.resistor_array_temp_calib[i]);
 
-		float resistance = rtd_app.switch_on_resistance * 6;
+	        if (multiple >= 7)
+	            multiple = 7;
 
-		for (i = 5; i >= 0; i--) {
-			multiple = (((float)request - resistance) / rtd_app.resistor_array_temp_calib[i]);
+	        resistance += multiple * rtd_app.resistor_array_temp_calib[i];
+	        rtd_app.switch_position_temp_calib[i] = multiple;
 
-			if (multiple >= 7) multiple = 7;
-
-			resistance = resistance + multiple * rtd_app.resistor_array_temp_calib[i];
-			rtd_app.switch_position_temp_calib[i] = multiple;
-
-			if (resistance >= request) break;
-		}
+	        i--;
+	    }
 	}
-
 
 
 	/**
@@ -227,8 +233,9 @@ static RTD_t rtd_app;
 		rtd_app.resistance = conf.rtd.resistance;
 		rtd_app.temp_c = SHT20_GetTemperature();
 
-		if (conf.rtd.resistance >= 10 && conf.rtd.resistance <=290000)
-			set_switch_rezistor_temp_calib(rtd_app.resistance, rtd_app.temp_c, rtd_app.temp_koef);
+		if(rtd_app.temp_c != 0 && conf.rtd.resistance >= 10 && conf.rtd.resistance <=290000){
+			set_switch_rezistor_temp_calib(rtd_app.resistance,rtd_app.temp_c, rtd_app.temp_koef);
+		}
 	}
 
 	void setNTC_TempCalb (){
@@ -236,7 +243,7 @@ static RTD_t rtd_app;
 		rtd_app.resistance = conf.rtd.ntc_stock_res*exponential(val, 20);
 		rtd_app.temp_c = SHT20_GetTemperature();
 
-		if (conf.rtd.temperature >= -30 && conf.rtd.temperature<=200)
+		if (rtd_app.temp_c != 0 && conf.rtd.temperature >= -30 && conf.rtd.temperature<=200)
 			set_switch_rezistor_temp_calib(rtd_app.resistance, rtd_app.temp_c, rtd_app.temp_koef);
 	}
 
@@ -245,7 +252,7 @@ static RTD_t rtd_app;
 		rtd_app.resistance =  conf.rtd.pt_stock_res*(1+A*conf.rtd.temperature);
 		rtd_app.temp_c = SHT20_GetTemperature();
 
-		if (conf.rtd.temperature >= -30 && conf.rtd.temperature<=200)
+		if (rtd_app.temp_c != 0 && conf.rtd.temperature >= -30 && conf.rtd.temperature<=200)
 			set_switch_rezistor_temp_calib(rtd_app.resistance, rtd_app.temp_c, rtd_app.temp_koef);
 	}
 
