@@ -339,7 +339,7 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"RTD_TEMP_CALIB", 
+    "Name":"RTD_TEMP_CORRECTION", 
     "Id":83891536, 
     "Address":[101],
     "Format":"ENUM",
@@ -357,7 +357,7 @@
       0,
       1
     ],
-    "Description":"Temperature calibration mode - recalculates decade resistance values ​​based on current temperature\r\nAllowed values: \r\nValue 0 - Calibration off - Calculate switch positions of resistors decade without temperature correction.\r\nValue 1 - Calibration on - Calculate switch positions of resistors decade with temperature correction.\r\n"
+    "Description":"Temperature corection mode - recalculates decade resistance values ​​based on current temperature\r\nAllowed values: \r\nValue 0 - Calibration off - Calculate switch positions of resistors decade without temperature correction.\r\nValue 1 - Calibration on - Calculate switch positions of resistors decade with temperature correction.\r\n"
   },
   {
     "Type":"HOLD", 
@@ -428,6 +428,70 @@
     "Unit":"°C",
     "Label":"Temperature",
     "Description":"Set temperature for RTD port 1"
+  },
+  {
+    "Type":"HOLD", 
+    "Name":"RTD_SLEWRATE_MODE", 
+    "Id":83952976, 
+    "Address":[109],
+    "Format":"ENUM",
+    "Value":0,
+    "Access":"RW",
+    "Min":0,
+    "Max":1,
+    "Unit":"",
+    "Label":"Temp slew rate mode",
+    "EnumStr": [
+      "Slew rate off",
+      "Slew rate on"
+    ],
+    "EnumValue": [
+      0,
+      1
+    ],
+    "Description":"Temperature slew rate MODE\r\nAllowed values: \r\nValue 0 - Slew rate off - Temperature slew rate mode ON.\r\nValue 1 - Slew rate on - Temperature slew rate mode OFF.\r\n"
+  },
+  {
+    "Type":"HOLD", 
+    "Name":"RTD_SLEWRATE", 
+    "Id":83956306, 
+    "Address":[110],
+    "Format":"FLOAT",
+    "Value":5,
+    "Access":"RW",
+    "Min":0,
+    "Max":100,
+    "Unit":"°C/s",
+    "Label":"Temperature slew rate ",
+    "Description":"Temperature slew rate in °C/s"
+  },
+  {
+    "Type":"HOLD", 
+    "Name":"RTD_SLEWRATE_MAX", 
+    "Id":83972433, 
+    "Address":[111],
+    "Format":"INT",
+    "Value":50,
+    "Access":"RW",
+    "Min":-30,
+    "Max":200,
+    "Unit":"°C",
+    "Label":"Max temperature in SR mode",
+    "Description":"Maximum temperature in SR mode"
+  },
+  {
+    "Type":"HOLD", 
+    "Name":"RTD_SLEWRATE_MIN", 
+    "Id":83980625, 
+    "Address":[112],
+    "Format":"INT",
+    "Value":15,
+    "Access":"RW",
+    "Min":-30,
+    "Max":200,
+    "Unit":"°C",
+    "Label":"Min temperature in SR mode",
+    "Description":"Minimum temperature in SR mode"
   },
   {
     "Type":"INPUT", 
