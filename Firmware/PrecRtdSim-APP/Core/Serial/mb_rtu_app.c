@@ -173,8 +173,8 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_RTD_MODE:
       *value = conf.rtd.mode;
       break;
-    case MB_HOLD_RTD_TEMP_CALIB:
-      *value = conf.rtd.temp_calib;
+    case MB_HOLD_RTD_TEMP_CORRECTION:
+      *value = conf.rtd.temp_correction;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       *value = conf.rtd.ntc_beta;
@@ -196,6 +196,18 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
       break;
     case MB_HOLD_RTD_TEMPERATURE_1:
       *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1);
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MODE:
+      *value = conf.rtd.slewrate_mode;
+      break;
+    case MB_HOLD_RTD_SLEWRATE:
+      *value = (int16_t)(10 * conf.rtd.slewrate);
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MAX:
+      *value = conf.rtd.slewrate_max;
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MIN:
+      *value = conf.rtd.slewrate_min;
       break;
 
 
@@ -260,9 +272,9 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.rtd.mode = (rtd_mode_t)value;
       id = CONF_RTD_MODE;
       break;
-    case MB_HOLD_RTD_TEMP_CALIB:
-      conf.rtd.temp_calib = (rtd_temp_calib_t)value;
-      id = CONF_RTD_TEMP_CALIB;
+    case MB_HOLD_RTD_TEMP_CORRECTION:
+      conf.rtd.temp_correction = (rtd_temp_correction_t)value;
+      id = CONF_RTD_TEMP_CORRECTION;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       conf.rtd.ntc_beta = value;
@@ -289,6 +301,22 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
     case MB_HOLD_RTD_TEMPERATURE_1:
       *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1) = value;
       id = CONF_RTD_TEMPERATURE;
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MODE:
+      conf.rtd.slewrate_mode = (rtd_slewrate_mode_t)value;
+      id = CONF_RTD_SLEWRATE_MODE;
+      break;
+    case MB_HOLD_RTD_SLEWRATE:
+      conf.rtd.slewrate = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_SLEWRATE;
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MAX:
+      conf.rtd.slewrate_max = value;
+      id = CONF_RTD_SLEWRATE_MAX;
+      break;
+    case MB_HOLD_RTD_SLEWRATE_MIN:
+      conf.rtd.slewrate_min = value;
+      id = CONF_RTD_SLEWRATE_MIN;
       break;
 
 

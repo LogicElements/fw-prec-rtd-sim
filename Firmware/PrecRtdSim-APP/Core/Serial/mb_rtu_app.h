@@ -91,7 +91,7 @@
 #define MB_HOLD_COM_MB_APPLY               7u
 #define MB_HOLD_COM_MB_TIMEOUT             8u
 #define MB_HOLD_RTD_MODE                   100u
-#define MB_HOLD_RTD_TEMP_CALIB             101u
+#define MB_HOLD_RTD_TEMP_CORRECTION        101u
 #define MB_HOLD_RTD_NTC_BETA               102u
 #define MB_HOLD_RTD_NTC_STOCK_RES          103u
 #define MB_HOLD_RTD_PT_STOCK_RES           104u
@@ -99,8 +99,12 @@
 #define MB_HOLD_RTD_RESISTANCE_1           106u
 #define MB_HOLD_RTD_TEMPERATURE_0          107u
 #define MB_HOLD_RTD_TEMPERATURE_1          108u
+#define MB_HOLD_RTD_SLEWRATE_MODE          109u
+#define MB_HOLD_RTD_SLEWRATE               110u
+#define MB_HOLD_RTD_SLEWRATE_MAX           111u
+#define MB_HOLD_RTD_SLEWRATE_MIN           112u
 
-#define MB_HOLD_LAST      108
+#define MB_HOLD_LAST      112
 
 
 /** @} */

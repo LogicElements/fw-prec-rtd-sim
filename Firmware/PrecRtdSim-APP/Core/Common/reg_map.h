@@ -79,12 +79,16 @@
 #define CONF_COM_MB_APPLY          0x03006151u  ///< Apply modbus parameters
 #define CONF_COM_MB_TIMEOUT        0x03008171u  ///< Modbus timeout
 #define CONF_RTD_MODE              0x05000550u  ///< Emulation mode
-#define CONF_RTD_TEMP_CALIB        0x05001550u  ///< Temperature calibration
+#define CONF_RTD_TEMP_CORRECTION   0x05001550u  ///< Temperature calibration
 #define CONF_RTD_NTC_BETA          0x05002151u  ///< NTC beta
 #define CONF_RTD_NTC_STOCK_RES     0x05004151u  ///< NTC stock resistance
 #define CONF_RTD_PT_STOCK_RES      0x05006151u  ///< Platinum stock resistance
 #define CONF_RTD_RESISTANCE        0x05008152u  ///< Set resistance
 #define CONF_RTD_TEMPERATURE       0x0500C252u  ///< Temperature
+#define CONF_RTD_SLEWRATE_MODE     0x05010550u  ///< Temp slew rate mode
+#define CONF_RTD_SLEWRATE          0x05011252u  ///< Temperature slew rate 
+#define CONF_RTD_SLEWRATE_MAX      0x05015151u  ///< Max temperature in SR mode
+#define CONF_RTD_SLEWRATE_MIN      0x05017151u  ///< Min temperature in SR mode
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -124,7 +128,7 @@
 #define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 16) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 28) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -175,7 +179,13 @@ typedef enum
 {
   RTD_CALIB_OFF = 0,
   RTD_CALIB_ON = 1,
-}rtd_temp_calib_t ;
+}rtd_temp_correction_t ;
+
+typedef enum
+{
+  RTD_SLEWRATE_OFF = 0,
+  RTD_SLEWRATE_ON = 1,
+}rtd_slewrate_mode_t ;
 
 typedef struct __packed __aligned(4)
 {
@@ -217,12 +227,16 @@ typedef struct __packed __aligned(4)
 typedef struct __packed __aligned(4)
 {
   rtd_mode_t mode;
-  rtd_temp_calib_t temp_calib;
+  rtd_temp_correction_t temp_correction;
   uint16_t ntc_beta;
   uint16_t ntc_stock_res;
   uint16_t pt_stock_res;
   uint32_t resistance;
   float temperature;
+  rtd_slewrate_mode_t slewrate_mode;
+  float slewrate;
+  uint16_t slewrate_max;
+  uint16_t slewrate_min;
 }conf_reg_rtd_t;
 
 typedef struct __packed __aligned(4)
