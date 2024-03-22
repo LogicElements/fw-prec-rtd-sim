@@ -8,54 +8,56 @@
 
 #include "RTD_Handle.h"
 #include "RTD_lib.h"
-#include "common.h"
 #include "configuration.h"
+
 
 
 void RTD_Handle(){
 
 
-	if(conf.rtd.temp_calib == 0){
+	// if slew rate mode is disabled
+	if(!conf.rtd.slewrate_mode)
+	{
 
-	switch(conf.rtd.mode){
+		tempSlewRateSetMin();   // set temperature slew rate to minimum value
 
-	case 0:
-		setResistance();
-		break;
-	case 1:
-		setNTC();
-		break;
-	case 2:
-		setPT();
-		break;
-	default:
-		setResistance();
-		break;
-						}
+		 // choose action based on RTD mode
+		switch(conf.rtd.mode){
+
+		case 0: // direct resistance mode
+			setResistance(conf.rtd.temp_correction);
+			break;
+		case 1:  // NTC mode
+			setNTC(conf.rtd.temp_correction,0);
+			break;
+		case 2:  // PT mode
+			setPT(conf.rtd.temp_correction,0);
+			break;
+		default: //default action (set direct resistance without temp correction)
+			setResistance(0);
+			break;
+							 }
 	}
 
 
-	if(conf.rtd.temp_calib == 1){
+	else // if slew rate mode is enabled
+	{
+		// choose action based on RTD mode
+		switch (conf.rtd.mode) {
 
-	switch(conf.rtd.mode){
-
-	case 0:
-		setResistance_TempCalb();
-		break;
-	case 1:
-		setNTC_TempCalb();
-		break;
-	case 2:
-		setPT_TempCalb();
-		break;
-	default:
-		setResistance_TempCalb();
-		break;
-
-							}
-   }
-
+		case 1: // NTC mode with temperature slew rate
+			tempSlewRate(0,conf.rtd.temp_correction);
+			break;
+		case 2: // PT mode with temperature slew rate
+			tempSlewRate(1,conf.rtd.temp_correction);
+			break;
+		default: //default action (set direct resistance without temp correction)
+			setResistance(0);
+		    break;
+								}
+	}
 }
+
 
 
 
