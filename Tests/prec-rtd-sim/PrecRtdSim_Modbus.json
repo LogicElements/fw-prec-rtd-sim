@@ -335,7 +335,7 @@
       1,
       2
     ],
-    "Description":"Mode of RTD emulation. Selected mode is common for all 4 channels\r\nAllowed values: \r\nValue 0 - Direct resistance - Set resistance is directly applied to RTD ports.\r\nValue 1 - NTC thermistor - Set temperature is used for NTC resistance computation.\r\nValue 2 - Platinum RTD - Set temperature is used for PT1000 resistance computation.\r\n"
+    "Description":"Mode of RTD emulation.\r\nAllowed values: \r\nValue 0 - Direct resistance - Set resistance is directly applied to RTD ports.\r\nValue 1 - NTC thermistor - Set temperature is used for NTC resistance computation.\r\nValue 2 - Platinum RTD - Set temperature is used for PT1000 resistance computation.\r\n"
   },
   {
     "Type":"HOLD", 
@@ -348,7 +348,7 @@
     "Min":0,
     "Max":1,
     "Unit":"",
-    "Label":"Temperature calibration",
+    "Label":"Temperature correction",
     "EnumStr": [
       "Calibration off",
       "Calibration on"
@@ -357,7 +357,7 @@
       0,
       1
     ],
-    "Description":"Temperature corection mode - recalculates decade resistance values ​​based on current temperature\r\nAllowed values: \r\nValue 0 - Calibration off - Calculate switch positions of resistors decade without temperature correction.\r\nValue 1 - Calibration on - Calculate switch positions of resistors decade with temperature correction.\r\n"
+    "Description":"Temperature corection mode - recalculates decade resistance values ​​based on current temperature\r\nAllowed values: \r\nValue 0 - Calibration off - Temperature calibration off .\r\nValue 1 - Calibration on - Temperature calibration on.\r\n"
   },
   {
     "Type":"HOLD", 
@@ -385,7 +385,7 @@
     "Max":10000,
     "Unit":"Ohm",
     "Label":"NTC stock resistance",
-    "Description":"NTC stock resistance at 25 °C (10000 for common 10k NTC)"
+    "Description":"NTC stock resistance at 25 C (10000 for common 10k NTC)"
   },
   {
     "Type":"HOLD", 
@@ -399,7 +399,7 @@
     "Max":1000,
     "Unit":"Ohm",
     "Label":"Platinum stock resistance",
-    "Description":"Platinum stock resistance at 0 °C\r\nValue 100 - PT100\r\nValue 500 - PT500\r\nValue 1000 - PT1000"
+    "Description":"Platinum stock resistance at 0 C\r\nValue 100 - PT100\r\nValue 500 - PT500\r\nValue 1000 - PT1000"
   },
   {
     "Type":"HOLD", 
@@ -425,9 +425,9 @@
     "Access":"RW",
     "Min":-30,
     "Max":200,
-    "Unit":"°C",
+    "Unit":"C",
     "Label":"Temperature",
-    "Description":"Set temperature for RTD port 1"
+    "Description":"Temperature that should be set at RTD port 1"
   },
   {
     "Type":"HOLD", 
@@ -449,7 +449,7 @@
       0,
       1
     ],
-    "Description":"Temperature slew rate MODE\r\nAllowed values: \r\nValue 0 - Slew rate off - Temperature slew rate mode ON.\r\nValue 1 - Slew rate on - Temperature slew rate mode OFF.\r\n"
+    "Description":"Temperature slew rate MODE \r\nAllowed values: \r\nValue 0 - Slew rate off - Temperature slew rate mode ON.\r\nValue 1 - Slew rate on - Temperature slew rate mode OFF.\r\n"
   },
   {
     "Type":"HOLD", 
@@ -461,9 +461,9 @@
     "Access":"RW",
     "Min":0,
     "Max":100,
-    "Unit":"°C/s",
+    "Unit":"C/s",
     "Label":"Temperature slew rate ",
-    "Description":"Temperature slew rate in °C/s"
+    "Description":"Temperature slew rate in C/s"
   },
   {
     "Type":"HOLD", 
@@ -475,9 +475,9 @@
     "Access":"RW",
     "Min":-30,
     "Max":200,
-    "Unit":"°C",
+    "Unit":"C",
     "Label":"Max temperature in SR mode",
-    "Description":"Maximum temperature in SR mode"
+    "Description":"Set maximum of temperature range in SR mode"
   },
   {
     "Type":"HOLD", 
@@ -489,9 +489,9 @@
     "Access":"RW",
     "Min":-30,
     "Max":200,
-    "Unit":"°C",
+    "Unit":"C",
     "Label":"Min temperature in SR mode",
-    "Description":"Minimum temperature in SR mode"
+    "Description":"Set minimum of temperature range in SR mode"
   },
   {
     "Type":"INPUT", 
