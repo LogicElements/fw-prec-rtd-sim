@@ -1,0 +1,6 @@
+../Core/Board/switch.c:59:6:Switch_Init	2
+../Core/Board/switch.c:76:10:Switch_GetAll	7
+../Core/Board/switch.c:128:10:Switch_GetBootstrap	1
+../Core/Board/switch.c:133:10:Switch_GetAddress	1
+../Core/Board/switch.c:138:10:Switch_GetPressed	1
+../Core/Board/switch.c:143:10:Switch_GetReleased	1

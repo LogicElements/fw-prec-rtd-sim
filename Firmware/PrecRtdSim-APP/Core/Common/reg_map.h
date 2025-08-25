@@ -69,8 +69,6 @@
 #define CONF_FACT_BOOT_REVISION    0x0100C112u  ///< Bootloader version
 #define CONF_FIRM_REVISION         0x02000112u  ///< Firmware revision
 #define CONF_FIRM_ASSEMBLY_INFO    0x02004112u  ///< Assembly date
-#define CONF_FIRM_APP_CHECKSUM     0x02008112u  ///< CRC checksum
-#define CONF_FIRM_APP_SIZE         0x0200C112u  ///< Firmware size
 #define CONF_COM_MB_BAUD_RATE      0x03000570u  ///< Modbus baud rate
 #define CONF_COM_MB_PARITY         0x03001570u  ///< Modbus parity
 #define CONF_COM_MB_STOP_BITS      0x03002570u  ///< Modbus stop bits
@@ -79,16 +77,21 @@
 #define CONF_COM_MB_APPLY          0x03006151u  ///< Apply modbus parameters
 #define CONF_COM_MB_TIMEOUT        0x03008171u  ///< Modbus timeout
 #define CONF_RTD_MODE              0x05000550u  ///< Emulation mode
-#define CONF_RTD_TEMP_CORRECTION   0x05001550u  ///< Temperature calibration
-#define CONF_RTD_NTC_BETA          0x05002151u  ///< NTC beta
-#define CONF_RTD_NTC_STOCK_RES     0x05004151u  ///< NTC stock resistance
-#define CONF_RTD_PT_STOCK_RES      0x05006151u  ///< Platinum stock resistance
-#define CONF_RTD_RESISTANCE        0x05008152u  ///< Set resistance
-#define CONF_RTD_TEMPERATURE       0x0500C252u  ///< Temperature
-#define CONF_RTD_SLEWRATE_MODE     0x05010550u  ///< Temp slew rate mode
-#define CONF_RTD_SLEWRATE          0x05011252u  ///< Temperature slew rate 
-#define CONF_RTD_SLEWRATE_MAX      0x05015151u  ///< Max temperature in SR mode
-#define CONF_RTD_SLEWRATE_MIN      0x05017151u  ///< Min temperature in SR mode
+#define CONF_RTD_CHANNEL_SELECT    0x05001151u  ///< RTD channel selection
+#define CONF_RTD_EXP_BOARD1_ADDR1  0x05003550u  ///< 1. expansion board address E1
+#define CONF_RTD_EXP_BOARD1_ADDR2  0x05004550u  ///< 1. expansion board address E2
+#define CONF_RTD_EXP_BOARD2_ADDR1  0x05005550u  ///< 2. expansion board address E1
+#define CONF_RTD_EXP_BOARD2_ADDR2  0x05006550u  ///< 2. expansion board address E2
+#define CONF_RTD_EXP_BOARD_INIT    0x05007150u  ///< Expansion board address init/reset
+#define CONF_RTD_NTC_BETA          0x05008151u  ///< NTC beta
+#define CONF_RTD_NTC_STOCK_RES     0x0500A151u  ///< NTC stock resistance
+#define CONF_RTD_PT_STOCK_RES      0x0500C151u  ///< Platinum stock resistance
+#define CONF_RTD_RESISTANCE        0x0500E152u  ///< Set resistance
+#define CONF_RTD_TEMPERATURE       0x05012252u  ///< Temperature
+#define CONF_RTD_SLEWRATE_MODE     0x05016550u  ///< Temp slew rate mode
+#define CONF_RTD_SLEWRATE          0x05017252u  ///< Temperature slew rate 
+#define CONF_RTD_SLEWRATE_MAX      0x0501B151u  ///< Max temperature in SR mode
+#define CONF_RTD_SLEWRATE_MIN      0x0501D151u  ///< Min temperature in SR mode
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -128,7 +131,7 @@
 #define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 28) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 8) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 32) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -177,9 +180,51 @@ typedef enum
 
 typedef enum
 {
-  RTD_CALIB_OFF = 0,
-  RTD_CALIB_ON = 1,
-}rtd_temp_correction_t ;
+  B1_ADDR1_000 = 0,
+  B1_ADDR1_001 = 1,
+  B1_ADDR1_010 = 2,
+  B1_ADDR1_011 = 3,
+  B1_ADDR1_100 = 4,
+  B1_ADDR1_101 = 5,
+  B1_ADDR1_110 = 6,
+  B1_ADDR1_111 = 7,
+}rtd_exp_board1_addr1_t ;
+
+typedef enum
+{
+  B1_ADDR2_000 = 0,
+  B1_ADDR2_001 = 1,
+  B1_ADDR2_010 = 2,
+  B1_ADDR2_011 = 3,
+  B1_ADDR2_100 = 4,
+  B1_ADDR2_101 = 5,
+  B1_ADDR2_110 = 6,
+  B1_ADDR2_111 = 7,
+}rtd_exp_board1_addr2_t ;
+
+typedef enum
+{
+  B2_ADDR1_000 = 0,
+  B2_ADDR1_001 = 1,
+  B2_ADDR1_010 = 2,
+  B2_ADDR1_011 = 3,
+  B2_ADDR1_100 = 4,
+  B2_ADDR1_101 = 5,
+  B2_ADDR1_110 = 6,
+  B2_ADDR1_111 = 7,
+}rtd_exp_board2_addr1_t ;
+
+typedef enum
+{
+  B2_ADDR2_000 = 0,
+  B2_ADDR2_001 = 1,
+  B2_ADDR2_010 = 2,
+  B2_ADDR2_011 = 3,
+  B2_ADDR2_100 = 4,
+  B2_ADDR2_101 = 5,
+  B2_ADDR2_110 = 6,
+  B2_ADDR2_111 = 7,
+}rtd_exp_board2_addr2_t ;
 
 typedef enum
 {
@@ -209,8 +254,6 @@ typedef struct __packed __aligned(4)
 {
   uint32_t revision;
   uint32_t assembly_info;
-  uint32_t app_checksum;
-  uint32_t app_size;
 }conf_reg_firm_t;
 
 typedef struct __packed __aligned(4)
@@ -227,7 +270,12 @@ typedef struct __packed __aligned(4)
 typedef struct __packed __aligned(4)
 {
   rtd_mode_t mode;
-  rtd_temp_correction_t temp_correction;
+  uint16_t channel_select;
+  rtd_exp_board1_addr1_t exp_board1_addr1;
+  rtd_exp_board1_addr2_t exp_board1_addr2;
+  rtd_exp_board2_addr1_t exp_board2_addr1;
+  rtd_exp_board2_addr2_t exp_board2_addr2;
+  uint8_t exp_board_init;
   uint16_t ntc_beta;
   uint16_t ntc_stock_res;
   uint16_t pt_stock_res;
@@ -292,3 +340,4 @@ Status_t RegMap_RestoreFactoryValues(void);
 
 #endif /* REG_MAP_H_ */
 /** @} */
+

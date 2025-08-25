@@ -1,0 +1,15 @@
+../Drivers/CMSIS/Include/core_cm0.h:856:34:__NVIC_SystemReset	1
+../Core/Common/system_msp.c:100:6:System_CrcInit	2
+../Core/Common/system_msp.c:118:6:System_CrcClear	1
+../Core/Common/system_msp.c:124:10:System_CrcAccumulate	1
+../Core/Common/system_msp.c:148:10:System_ReloadWdg	1
+../Core/Common/system_msp.c:129:10:System_InitWdg	2
+../Core/Common/system_msp.c:158:9:System_Delay	1
+../Core/Common/system_msp.c:165:6:System_Reset	0
+../Core/Common/system_msp.c:170:10:System_FlashErase	1
+../Core/Common/system_msp.c:192:10:System_FlashProgram	5
+../Core/Common/system_msp.c:260:10:System_IsFlashNotEmpty	4
+../Core/Common/system_msp.c:224:10:System_VerifyImage	4
+../Core/Common/system_msp.c:280:6:System_RemapApplicationVector	2
+../Core/Common/system_msp.c:297:6:System_UseFlashVector	1
+../Core/Common/system_msp.c:308:6:System_StartApplication	1

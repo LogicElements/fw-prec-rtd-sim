@@ -15,10 +15,26 @@
 * @brief: Initialization MAX7300 values
 * @note: normal operation mode
 */
-	void MAX_Init() {
-		uint8_t cmd = 0x01;
-		HAL_I2C_Mem_Write(&hi2c2, MAX_I2C_ADDR, MAX_CONFIG, 1, &cmd, 1, HAL_MAX_DELAY);
-	}
+
+ #define MAX_SET_30   (MAX_SET_12 + 18)
+ #define MAX_SET_31   (MAX_SET_12 + 19)
+
+void MAX_Init(void)
+{
+    uint8_t cmd;
+
+    /* Normal operation mode */
+    cmd = 0x01;
+    HAL_I2C_Mem_Write(&hi2c2, MAX_I2C_ADDR, MAX_CONFIG, 1, &cmd, 1, HAL_MAX_DELAY);
+
+    /* P30 -> 0 */
+    cmd = 0x00;
+    HAL_I2C_Mem_Write(&hi2c2, MAX_I2C_ADDR, MAX_SET_30, 1, &cmd, 1, HAL_MAX_DELAY);
+
+    /* P31 -> 1 */
+    cmd = 0x01;
+    HAL_I2C_Mem_Write(&hi2c2, MAX_I2C_ADDR, MAX_SET_31, 1, &cmd, 1, HAL_MAX_DELAY);
+}
 
 /**
 * @brief: MAX7400 port configuration as GPIO output

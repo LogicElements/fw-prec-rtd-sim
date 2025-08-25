@@ -1,0 +1,3 @@
+../Core/Serial/mb_rtu_app.c:40:10:MbRtu_ReadInputRegCallback	26
+../Core/Serial/mb_rtu_app.c:139:10:MbRtu_ReadHoldingRegCallback	27
+../Core/Serial/mb_rtu_app.c:238:10:MbRtu_WriteHoldingRegCallback	27

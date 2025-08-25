@@ -1,0 +1,8 @@
+../Core/Board/PCA9505.c:18:16:reg_addr	1
+../Core/Board/PCA9505.c:19:16:addr_from_a2a1a0	1
+../Core/Board/PCA9505.c:21:9:PCA_AddrFromBoard1	2
+../Core/Board/PCA9505.c:22:9:PCA_AddrFromBoard2	2
+../Core/Board/PCA9505.c:24:19:PCA_Init_AllOutputs	3
+../Core/Board/PCA9505.c:41:19:PCA_WriteAllPorts	1
+../Core/Board/PCA9505.c:47:19:PCA_PinWrite	3
+../Core/Board/PCA9505.c:61:6:PCA_MapSwitchToPorts	5

@@ -1,0 +1,4 @@
+../Core/Board/SHT20.c:17:6:SHT20_softreset	1
+../Core/Board/SHT20.c:28:7:SHT20_GetTemperature	3
+../Core/Board/SHT20.c:68:9:SHT20_ReadUserReg	1
+../Core/Board/SHT20.c:83:6:SHT20_SetResolution	1

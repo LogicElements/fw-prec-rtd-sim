@@ -60,14 +60,10 @@
 #define MB_INPUT_FIRM_REVISION_1           16u
 #define MB_INPUT_FIRM_ASSEMBLY_INFO_0      17u
 #define MB_INPUT_FIRM_ASSEMBLY_INFO_1      18u
-#define MB_INPUT_FIRM_APP_CHECKSUM_0       19u
-#define MB_INPUT_FIRM_APP_CHECKSUM_1       20u
-#define MB_INPUT_FIRM_APP_SIZE_0           21u
-#define MB_INPUT_FIRM_APP_SIZE_1           22u
-#define MB_INPUT_DBG_WRITES_CONF_0         23u
-#define MB_INPUT_DBG_WRITES_CONF_1         24u
+#define MB_INPUT_DBG_WRITES_CONF_0         19u
+#define MB_INPUT_DBG_WRITES_CONF_1         20u
 
-#define MB_INPUT_LAST     24
+#define MB_INPUT_LAST     20
 
 
 /** @} */
@@ -91,20 +87,24 @@
 #define MB_HOLD_COM_MB_APPLY               7u
 #define MB_HOLD_COM_MB_TIMEOUT             8u
 #define MB_HOLD_RTD_MODE                   100u
-#define MB_HOLD_RTD_TEMP_CORRECTION        101u
-#define MB_HOLD_RTD_NTC_BETA               102u
-#define MB_HOLD_RTD_NTC_STOCK_RES          103u
-#define MB_HOLD_RTD_PT_STOCK_RES           104u
-#define MB_HOLD_RTD_RESISTANCE_0           105u
-#define MB_HOLD_RTD_RESISTANCE_1           106u
-#define MB_HOLD_RTD_TEMPERATURE_0          107u
-#define MB_HOLD_RTD_TEMPERATURE_1          108u
-#define MB_HOLD_RTD_SLEWRATE_MODE          109u
-#define MB_HOLD_RTD_SLEWRATE               110u
-#define MB_HOLD_RTD_SLEWRATE_MAX           111u
-#define MB_HOLD_RTD_SLEWRATE_MIN           112u
+#define MB_HOLD_RTD_CHANNEL_SELECT         101u
+#define MB_HOLD_RTD_EXP_BOARD1_ADDR1       102u
+#define MB_HOLD_RTD_EXP_BOARD1_ADDR2       103u
+#define MB_HOLD_RTD_EXP_BOARD2_ADDR1       104u
+#define MB_HOLD_RTD_EXP_BOARD2_ADDR2       105u
+#define MB_HOLD_RTD_EXP_BOARD_INIT         106u
+#define MB_HOLD_RTD_NTC_BETA               107u
+#define MB_HOLD_RTD_NTC_STOCK_RES          108u
+#define MB_HOLD_RTD_PT_STOCK_RES           109u
+#define MB_HOLD_RTD_RESISTANCE_0           110u
+#define MB_HOLD_RTD_RESISTANCE_1           111u
+#define MB_HOLD_RTD_TEMPERATURE            112u
+#define MB_HOLD_RTD_SLEWRATE_MODE          113u
+#define MB_HOLD_RTD_SLEWRATE               114u
+#define MB_HOLD_RTD_SLEWRATE_MAX           115u
+#define MB_HOLD_RTD_SLEWRATE_MIN           116u
 
-#define MB_HOLD_LAST      112
+#define MB_HOLD_LAST      116
 
 
 /** @} */
@@ -142,3 +142,4 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value);
 
 #endif /* MB_RTU_APP_H_ */
 /** @} */
+

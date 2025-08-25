@@ -36,6 +36,25 @@
  */
 #define CONF_TARGET_DEVICE            2051   //< Set proper target device ID
 
+/* === Factory / Firmware constants (hard-coded) === */
+
+/* SERIAL_NUMBER format xxyyzzzz:
+   xx = year (00–99), yy = month (01–12), zzzz = serial (0000–9999) */
+#define FACT_SERIAL_YEAR    23u     /* 2023 -> 23 */
+#define FACT_SERIAL_MONTH   11u     /* listopad */
+#define FACT_SERIAL_SEQ     1u      /* pořadové číslo */
+#define FACT_SERIAL_NUMBER  ((uint32_t)(FACT_SERIAL_YEAR*1000000u + FACT_SERIAL_MONTH*10000u + (FACT_SERIAL_SEQ & 0xFFFFu)))
+
+/* Device/product and revisions */
+#define FACT_DEVICE_ID      9153u
+#define FACT_HW_REVISION    1001u   /* major=10?01, viz tvůj formát xxxyyy */
+#define FACT_BOOT_REVISION  1001u
+
+/* Firmware info */
+#define FIRM_REVISION       1u          /* 1..999 */
+#define FIRM_ASSEMBLY_INFO  20250330u   /* yyyymmdd (2025-03-30) */
+
+
 /* Macros --------------------------------------------------------------------*/
 
 /**
@@ -200,6 +219,8 @@ extern const uint8_t CONF_C_CONFIGURATION_OFFSET[]  asm("_LD_ADDRESS_CONFIG");
 extern const uint8_t CONF_C_APPLICATION_MAX_SIZE[]  asm("_LD_SIZE_BUFFER_APP");
 extern const uint8_t CONF_C_CONFIGURATION_SIZE[]    asm("_LD_SIZE_CONFIGURATION");
 extern const uint8_t CONF_C_CALIBRATION_SIZE[]      asm("_LD_SIZE_CALIBRATION");
+
+
 
 /* Functions -----------------------------------------------------------------*/
 

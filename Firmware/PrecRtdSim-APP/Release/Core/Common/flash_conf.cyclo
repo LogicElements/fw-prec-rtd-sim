@@ -1,0 +1,8 @@
+../Core/Common/flash_conf.c:87:10:FlashConf_Init	1
+../Core/Common/flash_conf.c:357:10:FlashConf_EraseBlock	1
+../Core/Common/flash_conf.c:219:10:FlashConf_FindEntry	23
+../Core/Common/flash_conf.c:366:10:FlashConf_Read	4
+../Core/Common/flash_conf.c:95:10:FlashConf_Load	4
+../Core/Common/flash_conf.c:396:10:FlashConf_Write	7
+../Core/Common/flash_conf.c:131:10:FlashConf_Store	2
+../Core/Common/flash_conf.c:162:10:FlashConf_Test	4

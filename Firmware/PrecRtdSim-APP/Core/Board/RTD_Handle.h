@@ -9,10 +9,7 @@
 #define BOARD_RTD_HANDLE_H_
 
 
-void RTD_Handle_Init();
-void RTD_Handle();
-void RTD_Handle_temp_calib();
-void RTD_Handle_setTemp();
+void RTD_Handle(void);
 
 
 #endif /* BOARD_RTD_HANDLE_H_ */

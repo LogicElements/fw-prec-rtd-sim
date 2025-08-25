@@ -25,6 +25,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -42,7 +43,7 @@
 #include "RTD_lib.h"
 #include "MAX7300.h"
 #include "RTD_Handle.h"
-#include "SHT20.h"
+#include "PCA9505.h"
 
 /* USER CODE END Includes */
 
@@ -130,6 +131,40 @@ int main(void)
   MAX_Init(&hi2c2);
   MAX_conf();
 
+//  conf.rtd.exp_board_addr1 = ADDR1_000;
+//  conf.rtd.exp_board_addr2 = ADDR2_111;
+//  conf.rtd.channel_select = 0;
+
+//  conf.rtd.resistance = 20000;
+//  PCA_InitFromConf(&hi2c2);
+
+
+//
+//  /* postupně kanály 0–4 */
+//  for (uint8_t ch = 0; ch <= 4; ch++)
+//  {
+//      conf.rtd.channel_select = ch;
+//
+//      switch (ch) {
+//          case 0: conf.rtd.resistance = 1000; break;
+//          case 1: conf.rtd.resistance = 10000; break;
+//          case 2: conf.rtd.resistance = 20000; break;
+//          case 3: conf.rtd.resistance = 30000; break;
+//          case 4: conf.rtd.resistance = 40000; break;
+//      }
+//
+//      /* zavoláme driver */
+//      set_switch_rezistor(conf.rtd.resistance, 0, 0);
+//
+//      /* pro debug blikneme LEDku na desce */
+//      HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+//
+//      HAL_Delay(300); /* čekej sekundu a pak další kanál */
+//  }
+
+ // set_switch_rezistor(conf.rtd.resistance, 0, 0);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -155,11 +190,11 @@ int main(void)
       {
         System_Reset();
       }
+
       FlashApp_Handle();
       System_ReloadWdg();
 
-
-       RTD_Handle();
+      RTD_Handle();
 
     }
 

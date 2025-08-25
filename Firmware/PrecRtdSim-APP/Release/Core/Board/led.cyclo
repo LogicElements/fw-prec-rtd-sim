@@ -1,0 +1,6 @@
+../Core/Board/led.c:29:10:Led_Init	1
+../Core/Board/led.c:49:10:Led_GreenOn	1
+../Core/Board/led.c:58:10:Led_GreenOff	1
+../Core/Board/led.c:67:10:Led_GreenToggle	1
+../Core/Board/led.c:76:10:Led_RedOn	1
+../Core/Board/led.c:85:10:Led_RedOff	1

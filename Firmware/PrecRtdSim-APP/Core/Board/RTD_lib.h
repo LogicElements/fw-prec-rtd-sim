@@ -11,19 +11,19 @@
 #define INC_RTD_LIB_H_
 
 
-void RTD_Init();
-void RTD_Handle();
-void switch_position(uint32_t request, uint8_t temp_corr, float temperature, float temp_koef);
-void set_switch_rezistor(uint32_t request, uint8_t temp_corr, float temp_koef);
-void rezistorArrayTemperature(float temperature, float temp_koef);
-void checkSlewRateModeChange();
-void tempSlewRate(uint8_t rtd_mode, uint8_t temp_corr);
-void tempSlewRateSetMin();
+void RTD_Init(void);
 
+/* Basic function to set output resistance of the RTD emulator */
+void set_switch_rezistor(uint32_t request);
 
-void setResistance(uint8_t temp_corr);
-void setPT(uint8_t temp_corr, float temp);
-void setNTC (uint8_t temp_corr, float temp);
+/* Operating modes */
+void setResistance(void);   // direct resistance mode
+void setNTC(float temp);    // NTC simulation
+void setPT(float temp);     // Platinum RTD simulation
+
+/* Slew-rate mode */
+void tempSlewRate(uint8_t rtd_mode);
+void tempSlewRateSetMin(void);
 
 
 #endif /* INC_RTD_LIB_H_ */

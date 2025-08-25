@@ -103,18 +103,6 @@ Status_t MbRtu_ReadInputRegCallback(uint16_t address, uint16_t *value)
     case MB_INPUT_FIRM_ASSEMBLY_INFO_1:
       *value = *((uint16_t *)CONF_PTR(CONF_FIRM_ASSEMBLY_INFO) + 1);
       break;
-    case MB_INPUT_FIRM_APP_CHECKSUM_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_FIRM_APP_CHECKSUM) + 0);
-      break;
-    case MB_INPUT_FIRM_APP_CHECKSUM_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_FIRM_APP_CHECKSUM) + 1);
-      break;
-    case MB_INPUT_FIRM_APP_SIZE_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_FIRM_APP_SIZE) + 0);
-      break;
-    case MB_INPUT_FIRM_APP_SIZE_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_FIRM_APP_SIZE) + 1);
-      break;
     case MB_INPUT_DBG_WRITES_CONF_0:
       *value = *((uint16_t *)CONF_PTR(CONF_DBG_WRITES_CONF) + 0);
       break;
@@ -173,8 +161,23 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_RTD_MODE:
       *value = conf.rtd.mode;
       break;
-    case MB_HOLD_RTD_TEMP_CORRECTION:
-      *value = conf.rtd.temp_correction;
+    case MB_HOLD_RTD_CHANNEL_SELECT:
+      *value = conf.rtd.channel_select;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD1_ADDR1:
+      *value = conf.rtd.exp_board1_addr1;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD1_ADDR2:
+      *value = conf.rtd.exp_board1_addr2;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD2_ADDR1:
+      *value = conf.rtd.exp_board2_addr1;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD2_ADDR2:
+      *value = conf.rtd.exp_board2_addr2;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD_INIT:
+      *value = conf.rtd.exp_board_init;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       *value = conf.rtd.ntc_beta;
@@ -191,11 +194,8 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_RTD_RESISTANCE_1:
       *value = *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 1);
       break;
-    case MB_HOLD_RTD_TEMPERATURE_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 0);
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1);
+    case MB_HOLD_RTD_TEMPERATURE:
+      *value = (int16_t)(10 * conf.rtd.temperature);
       break;
     case MB_HOLD_RTD_SLEWRATE_MODE:
       *value = conf.rtd.slewrate_mode;
@@ -272,9 +272,29 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.rtd.mode = (rtd_mode_t)value;
       id = CONF_RTD_MODE;
       break;
-    case MB_HOLD_RTD_TEMP_CORRECTION:
-      conf.rtd.temp_correction = (rtd_temp_correction_t)value;
-      id = CONF_RTD_TEMP_CORRECTION;
+    case MB_HOLD_RTD_CHANNEL_SELECT:
+      conf.rtd.channel_select = value;
+      id = CONF_RTD_CHANNEL_SELECT;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD1_ADDR1:
+      conf.rtd.exp_board1_addr1 = (rtd_exp_board1_addr1_t)value;
+      id = CONF_RTD_EXP_BOARD1_ADDR1;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD1_ADDR2:
+      conf.rtd.exp_board1_addr2 = (rtd_exp_board1_addr2_t)value;
+      id = CONF_RTD_EXP_BOARD1_ADDR2;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD2_ADDR1:
+      conf.rtd.exp_board2_addr1 = (rtd_exp_board2_addr1_t)value;
+      id = CONF_RTD_EXP_BOARD2_ADDR1;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD2_ADDR2:
+      conf.rtd.exp_board2_addr2 = (rtd_exp_board2_addr2_t)value;
+      id = CONF_RTD_EXP_BOARD2_ADDR2;
+      break;
+    case MB_HOLD_RTD_EXP_BOARD_INIT:
+      conf.rtd.exp_board_init = value;
+      id = CONF_RTD_EXP_BOARD_INIT;
       break;
     case MB_HOLD_RTD_NTC_BETA:
       conf.rtd.ntc_beta = value;
@@ -295,11 +315,8 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 1) = value;
       id = CONF_RTD_RESISTANCE;
       break;
-    case MB_HOLD_RTD_TEMPERATURE_0:
-      *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 0) = value;
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_1:
-      *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1) = value;
+    case MB_HOLD_RTD_TEMPERATURE:
+      conf.rtd.temperature = ((float)((int16_t)value)) / 10;
       id = CONF_RTD_TEMPERATURE;
       break;
     case MB_HOLD_RTD_SLEWRATE_MODE:
@@ -338,3 +355,4 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
 
 
 /** @} */
+
