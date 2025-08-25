@@ -12,7 +12,7 @@
 #include "i2c.h"
 
 /* Private constants ---------------------------------------------------------*/
-#define tick_second 1000
+#define tick_second 1000  /* 1 second in ms */
 
 /* Private data structure ----------------------------------------------------*/
 typedef struct
@@ -35,7 +35,13 @@ static RTD_t rtd_app;
 /* Forward declarations ------------------------------------------------------*/
 static void switch_position(uint32_t request);
 
-/* Helper: exponential polynomial approximation (used for NTC) */
+/**
+ * @brief Helper: exponential polynomial approximation.
+ * @param x Input value
+ * @param n Number of terms
+ * @return Approximated exp(x)
+ * @note Used for NTC resistance calculation.
+ */
 static float exponential(float x, int n)
 {
     float result = 1.0f;
@@ -47,7 +53,15 @@ static float exponential(float x, int n)
     return result;
 }
 
-/* Initialization ------------------------------------------------------------*/
+/* ------------------------------------------------------------------------- */
+/* Initialization                                                            */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * @brief Initialize RTD library.
+ * @details Sets resistor array values, switch ON resistance,
+ *          and initializes slew-rate state from configuration.
+ */
 void RTD_Init(void)
 {
     /* Values of resistor array soldered on the board (in mΩ) */
@@ -69,13 +83,23 @@ void RTD_Init(void)
 #define PCA_BASE_ADDR  0x20u
 #define PCA_ADDR_MASK  0x07u
 
-/* Build 8-bit I2C address from A2..A0 bits */
+/**
+ * @brief Build 8-bit PCA I2C address from A2..A0 bits.
+ */
 static inline uint8_t PCA_AddrFromBits(uint8_t addr_bits_0_7)
 {
     return (uint8_t)((PCA_BASE_ADDR | (addr_bits_0_7 & PCA_ADDR_MASK)) << 1);
 }
 
-/* Compute switch positions for a given requested resistance (no temp. correction) */
+/* ------------------------------------------------------------------------- */
+/* Switch calculation and programming                                        */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * @brief Compute switch positions for requested resistance.
+ * @param request_ohm Requested resistance (Ω).
+ * @note Fills rtd_app.switch_position[0..5].
+ */
 static void switch_position(uint32_t request_ohm)
 {
     uint8_t multiple = 0;
@@ -102,13 +126,17 @@ static void switch_position(uint32_t request_ohm)
     }
 }
 
-/* Configure resistor switches via MAX/PCA expanders */
+/**
+ * @brief Configure resistor switches via MAX7300 or PCA9505 expanders.
+ * @param request Requested resistance in ohms.
+ * @note Selects channel using conf.rtd.channel_select.
+ */
 void set_switch_rezistor(uint32_t request)
 {
-    /* 1) spočítej polohy spínačů (naplní rtd_app.switch_position[0..5]) */
+    /* 1) calculate switch positions */
     switch_position(request);
 
-    /* 2) kanál 0 = on-board MAX7300 */
+    /* 2) channel 0 = on-board MAX7300 */
     if (conf.rtd.channel_select == 0u)
     {
         uint32_t cmd = 0u;
@@ -119,12 +147,12 @@ void set_switch_rezistor(uint32_t request)
         return;
     }
 
-    /* 3) slož 18bit stream pro PCA (stejný formát jako pro MAX) */
+    /* 3) build 18-bit command for PCA  */
     uint32_t cmd18 = 0u;
     for (int i = 0; i < 6; i++)
         cmd18 |= ((uint32_t)(rtd_app.switch_position[i] & 0x07u)) << (i * 3);
 
-    /* 4) vyber B1/B2, E1/E2 a stranu A/B podle channel_select (1..8) */
+    /* 4) select module B1/B2, expander E1/E2 and channel A/B */
     uint8_t ch = conf.rtd.channel_select;
     PCA_Module *m = NULL;
     uint8_t use_E1 = 0;
@@ -144,10 +172,10 @@ void set_switch_rezistor(uint32_t request)
         case 7: m = &g_B2; use_E1 = 0; channel_is_A = 1; break; // B2 E2 A
         case 8: m = &g_B2; use_E1 = 0; channel_is_A = 0; break; // B2 E2 B
 
-        default: return; // mimo rozsah
+        default: return; // out of range
     }
 
-    /* 5) ověř, že zvolený expander existuje a zapiš */
+    /* 5) verify expander exists and write command */
     if (m == NULL) return;
 
     if (use_E1) {
@@ -161,10 +189,14 @@ void set_switch_rezistor(uint32_t request)
     }
 }
 
+/* ------------------------------------------------------------------------- */
+/* Simulation modes                                                           */
+/* ------------------------------------------------------------------------- */
 
-
-
-/* Direct resistance mode */
+/**
+ * @brief Direct resistance mode.
+ * @note Only valid for 10–290kΩ range.
+ */
 void setResistance(void)
 {
     if (conf.rtd.resistance >= 10u && conf.rtd.resistance <= 290000u)
@@ -173,7 +205,11 @@ void setResistance(void)
     }
 }
 
-/* NTC simulation */
+/**
+ * @brief NTC thermistor simulation.
+ * @param temp Temperature (°C). If 0.0f, uses conf.rtd.temperature.
+ * @note Uses exponential approximation with Beta parameter.
+ */
 void setNTC(float temp)
 {
     rtd_app.temperature = (temp != 0.0f) ? temp : conf.rtd.temperature;
@@ -188,7 +224,11 @@ void setNTC(float temp)
     }
 }
 
-/* Platinum RTD simulation */
+/**
+ * @brief Platinum RTD simulation.
+ * @param temp Temperature (°C). If 0.0f, uses conf.rtd.temperature.
+ * @note Uses linear approximation R = R0 * (1 + A*T).
+ */
 void setPT(float temp)
 {
     rtd_app.temperature = (temp != 0.0f) ? temp : conf.rtd.temperature;
@@ -201,7 +241,11 @@ void setPT(float temp)
     }
 }
 
-/* Slew-rate temperature simulation (NTC or PT mode) */
+/**
+ * @brief Slew-rate temperature simulation.
+ * @param rtd_mode 0 = NTC, 1 = PT
+ * @note Increments temperature by slewrate every second until max is reached.
+ */
 void tempSlewRate(uint8_t rtd_mode)
 {
     if (rtd_app.config) {
@@ -215,7 +259,6 @@ void tempSlewRate(uint8_t rtd_mode)
         rtd_app.tick = 0u;
         rtd_app.config = 1u;
 
-
         if (rtd_app.tempSR <= conf.rtd.slewrate_max)
         {
         	(rtd_mode) ? setPT(rtd_app.tempSR) : setNTC(rtd_app.tempSR);
@@ -227,12 +270,15 @@ void tempSlewRate(uint8_t rtd_mode)
     }
 }
 
-/* Reset slew-rate temperature to minimum */
+/**
+ * @brief Reset slew-rate temperature to minimum.
+ * @note Re-arms the 1s scheduler for tempSlewRate().
+ */
 void tempSlewRateSetMin(void)
 {
     rtd_app.tempSR = conf.rtd.slewrate_min;
 
     /* re-arm the 1s scheduler */
     rtd_app.tick   = 0;   // force tempSlewRate() to set a new tick on next call
-    rtd_app.config = 1;   // "start a new session"
+    rtd_app.config = 1;   // start a new session
 }

@@ -94,6 +94,16 @@ Status_t RegMap_RestoreFactoryValues(void)
   CONF_SHORT(CONF_RTD_SLEWRATE_MAX)      = 50;
   CONF_SHORT(CONF_RTD_SLEWRATE_MIN)      = 15;
 
+  /* ---- Hard-coded FACT ---- */
+  conf.fact.serial_number = FACT_SERIAL_NUMBER;
+  conf.fact.device_id     = FACT_DEVICE_ID;
+  conf.fact.hw_revision   = FACT_HW_REVISION;
+  conf.fact.boot_revision = FACT_BOOT_REVISION;
+
+  /* ---- Hard-coded FIRM ---- */
+  conf.firm.revision      = FIRM_REVISION;
+  conf.firm.assembly_info = FIRM_ASSEMBLY_INFO;
+
 
   return ret;
 }
