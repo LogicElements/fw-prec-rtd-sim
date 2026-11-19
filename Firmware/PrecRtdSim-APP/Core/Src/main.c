@@ -279,12 +279,16 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 
 #define FW_UPGR_MASK            0xFFFF
 #define FW_UPGR_VALUE_FIRM      CONF_TARGET_DEVICE
+/* Upgrade type FW 1 accepted (the old LE RTD emulator's id) - the update tools send it, so they work with FW 1 too */
+#define FW_UPGR_VALUE_FIRM_FW1  2051
+#define FW_UPGR_IS_FIRM(type)   (((type) & FW_UPGR_MASK) == FW_UPGR_VALUE_FIRM || \
+                                 ((type) & FW_UPGR_MASK) == FW_UPGR_VALUE_FIRM_FW1)
 
 Status_t MbUpgr_HeaderClb(uint16_t type, uint16_t mode, uint32_t size)
 {
   Status_t ret = STATUS_OK;
 
-  if ((type & FW_UPGR_MASK) == FW_UPGR_VALUE_FIRM)
+  if (FW_UPGR_IS_FIRM(type))
   {
     switch (mode)
     {
@@ -322,7 +326,7 @@ Status_t MbUpgr_WriteDoneClb(uint32_t length)
 {
   Status_t ret = STATUS_OK;
 
-  if ((MbUpgr_GetType() & FW_UPGR_MASK) == FW_UPGR_VALUE_FIRM)
+  if (FW_UPGR_IS_FIRM(MbUpgr_GetType()))
   {
     /* The very last packet, verify image */
     ret = System_VerifyImage((uint32_t*) CONF_C_APP_BUFFER_OFFSET);

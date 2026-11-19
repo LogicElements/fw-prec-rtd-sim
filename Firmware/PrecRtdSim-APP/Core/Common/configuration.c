@@ -19,6 +19,8 @@
 /**
  * Definition of firmware information block in the flash memory
  */
+/* Word 8 is checked by the bootloader against its own device id - FW 1 had 2051 there and the bootloader refused
+   to install every image updated over Modbus (kept the old FW) */
 const uint32_t __attribute__((section (".sectionFwInfo"))) CONF_FIRMWARE_INFO[9] = {
     0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF,
     0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, CONF_TARGET_DEVICE};
