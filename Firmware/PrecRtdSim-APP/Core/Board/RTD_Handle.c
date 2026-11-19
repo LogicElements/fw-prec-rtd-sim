@@ -196,4 +196,7 @@ void RTD_Handle(void)
 
     /* remember SR mode for next edge detection */
     last_slewrate_mode = cur_slew_mode;
+
+    /* Channel LEDs flashed by the writes above */
+    PCA_LedsHandle(&hi2c2);
 }

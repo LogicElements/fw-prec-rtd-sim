@@ -31,6 +31,7 @@ HAL_StatusTypeDef PCA_PinWrite(I2C_HandleTypeDef *hi2c, uint8_t addr8, PCA9505_P
 void PCA_WriteCmd18(I2C_HandleTypeDef *hi2c, uint8_t addr8, uint32_t cmd18, uint8_t channel_is_A);
 HAL_StatusTypeDef PCA_InitFromConf(I2C_HandleTypeDef *hi2c);
 void PCA_WriteCmd18_Module(I2C_HandleTypeDef *hi2c, uint8_t module_idx /*1=B1,2=B2*/, uint32_t cmd18, uint8_t channel_is_A);
-void PCA_BlinkLed(I2C_HandleTypeDef *hi2c, PCA_Module *m,uint8_t use_E1, uint8_t channel_is_A);
+void PCA_FlashLed(I2C_HandleTypeDef *hi2c, PCA_Module *m, uint8_t use_E1, uint8_t channel_is_A);
+void PCA_LedsHandle(I2C_HandleTypeDef *hi2c);
 
 #endif

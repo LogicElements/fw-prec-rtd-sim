@@ -181,11 +181,11 @@ void set_switch_rezistor(uint32_t request)
     if (use_E1) {
         if (!m->has_E1) return;
         PCA_WriteCmd18(&hi2c2, m->addr8_E1, cmd18, channel_is_A);
-        PCA_BlinkLed(&hi2c2, m, 1 /*E1*/, channel_is_A);
+        PCA_FlashLed(&hi2c2, m, 1 /*E1*/, channel_is_A);
     } else {
         if (!m->has_E2) return;
         PCA_WriteCmd18(&hi2c2, m->addr8_E2, cmd18, channel_is_A);
-        PCA_BlinkLed(&hi2c2, m, 0 /*E2*/, channel_is_A);
+        PCA_FlashLed(&hi2c2, m, 0 /*E2*/, channel_is_A);
     }
 }
 
