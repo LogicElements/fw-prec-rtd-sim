@@ -5,7 +5,9 @@
 - **State 2026-11-20:** FW 2 written, built (`Binary/PrecRtdSim-APP-20261120-2.bin`, 28424 B) and flashed over Modbus
   into the dhw-ng-maa emulator (verified: `FIRM_REVISION` 2, `FIRM_ASSEMBLY_INFO` 20261120, writes answered in 32 ms
   instead of ~2.2 s, TC023 test013 8/8 per channel twice, board re-init keeps 25.0 C).
-- **Committed and pushed** with tag `FW/2` (2026-11-20), datasheet Rev 1.3 included.
+- **Committed locally** (4 commits on `main` + annotated tag `FW/2`, 2026-11-20), **not pushed**: the remote
+  `LogicElements/fw-prec-rtd-sim` (GitHub) refuses Ondřej's account (no write access). Push `main` + `FW/2` once
+  access is granted, or move the repo to a Jablotron remote (Ondřej's decision).
 - **Open:** other stands with a Prec emulator need the same update (le and luo have the old LE emulators).
 
 ## What the device is
