@@ -136,7 +136,8 @@ Status_t Config_ReadStream(uint8_t *data, uint32_t length)
         }
       }
 
-      if (ret == STATUS_OK)
+      /* The register map version stays the factory one of this FW (only its major part had to match above) */
+      if (ret == STATUS_OK && id != CONF_SYS_REGMAP_VERSION)
       {
         /* Write new value into register storage */
         memcpy(CONF_PTR(id), data + reqIdx, sizeReg);

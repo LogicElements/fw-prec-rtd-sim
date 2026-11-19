@@ -92,6 +92,16 @@
 #define CONF_RTD_SLEWRATE          0x05017252u  ///< Temperature slew rate 
 #define CONF_RTD_SLEWRATE_MAX      0x0501B151u  ///< Max temperature in SR mode
 #define CONF_RTD_SLEWRATE_MIN      0x0501D151u  ///< Min temperature in SR mode
+#define CONF_RTD_CHANNEL_MODE      0x0501F550u  ///< Channel temperature mode
+#define CONF_RTD_TEMPERATURE_CH0   0x05020252u  ///< Temperature channel 0
+#define CONF_RTD_TEMPERATURE_CH1   0x05024252u  ///< Temperature channel 1
+#define CONF_RTD_TEMPERATURE_CH2   0x05028252u  ///< Temperature channel 2
+#define CONF_RTD_TEMPERATURE_CH3   0x0502C252u  ///< Temperature channel 3
+#define CONF_RTD_TEMPERATURE_CH4   0x05030252u  ///< Temperature channel 4
+#define CONF_RTD_TEMPERATURE_CH5   0x05034252u  ///< Temperature channel 5
+#define CONF_RTD_TEMPERATURE_CH6   0x05038252u  ///< Temperature channel 6
+#define CONF_RTD_TEMPERATURE_CH7   0x0503C252u  ///< Temperature channel 7
+#define CONF_RTD_TEMPERATURE_CH8   0x05040252u  ///< Temperature channel 8
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -131,7 +141,7 @@
 #define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 8) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 32) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 8) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 68) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -232,6 +242,12 @@ typedef enum
   RTD_SLEWRATE_ON = 1,
 }rtd_slewrate_mode_t ;
 
+typedef enum
+{
+  RTD_CHM_SELECT = 0,
+  RTD_CHM_PER_CHANNEL = 1,
+}rtd_channel_mode_t ;
+
 typedef struct __packed __aligned(4)
 {
   uint32_t uptime;
@@ -285,6 +301,16 @@ typedef struct __packed __aligned(4)
   float slewrate;
   uint16_t slewrate_max;
   uint16_t slewrate_min;
+  rtd_channel_mode_t channel_mode;
+  float temperature_ch0;
+  float temperature_ch1;
+  float temperature_ch2;
+  float temperature_ch3;
+  float temperature_ch4;
+  float temperature_ch5;
+  float temperature_ch6;
+  float temperature_ch7;
+  float temperature_ch8;
 }conf_reg_rtd_t;
 
 typedef struct __packed __aligned(4)
@@ -340,4 +366,3 @@ Status_t RegMap_RestoreFactoryValues(void);
 
 #endif /* REG_MAP_H_ */
 /** @} */
-

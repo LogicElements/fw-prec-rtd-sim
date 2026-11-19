@@ -128,16 +128,16 @@ static void switch_position(uint32_t request_ohm)
 
 /**
  * @brief Configure resistor switches via MAX7300 or PCA9505 expanders.
+ * @param channel Channel 0-8 (0 = main board, 1-4 = 1. expansion board, 5-8 = 2. expansion board).
  * @param request Requested resistance in ohms.
- * @note Selects channel using conf.rtd.channel_select.
  */
-void set_switch_rezistor(uint32_t request)
+void set_switch_rezistor(uint16_t channel, uint32_t request)
 {
     /* 1) calculate switch positions */
     switch_position(request);
 
     /* 2) channel 0 = on-board MAX7300 */
-    if (conf.rtd.channel_select == 0u)
+    if (channel == 0u)
     {
         uint32_t cmd = 0u;
         for (int i = 0; i < 6; i++)
@@ -153,7 +153,7 @@ void set_switch_rezistor(uint32_t request)
         cmd18 |= ((uint32_t)(rtd_app.switch_position[i] & 0x07u)) << (i * 3);
 
     /* 4) select module B1/B2, expander E1/E2 and channel A/B */
-    uint8_t ch = conf.rtd.channel_select;
+    uint16_t ch = channel;
     PCA_Module *m = NULL;
     uint8_t use_E1 = 0;
     uint8_t channel_is_A = 0;
@@ -201,44 +201,53 @@ void setResistance(void)
 {
     if (conf.rtd.resistance >= 10u && conf.rtd.resistance <= 290000u)
     {
-        set_switch_rezistor(conf.rtd.resistance);
+        set_switch_rezistor(conf.rtd.channel_select, conf.rtd.resistance);
     }
 }
 
 /**
- * @brief NTC thermistor simulation.
- * @param temp Temperature (°C). If 0.0f, uses conf.rtd.temperature.
- * @note Uses exponential approximation with Beta parameter.
+ * @brief Temperature of one channel - NTC (exponential approximation with the Beta parameter) or
+ *        platinum RTD (linear approximation R = R0 * (1 + A*T)).
+ * @param channel Channel 0-8.
+ * @param pt      0 = NTC, 1 = platinum RTD.
+ * @param temp    Temperature (°C), -30 ... 200 - other values are ignored.
+ */
+void RTD_SetChannelTemperature(uint16_t channel, uint8_t pt, float temp)
+{
+    if (temp < -30.0f || temp > 200.0f)
+    {
+        return;
+    }
+    rtd_app.temperature = temp;
+    if (pt)
+    {
+        const float A = 3.91e-3f;
+        rtd_app.resistance = conf.rtd.pt_stock_res * (1.0f + A * temp);
+    }
+    else
+    {
+        float val = conf.rtd.ntc_beta * (1.0f/(temp + 273.15f) - 1.0f/(25.0f + 273.15f));
+        rtd_app.resistance = conf.rtd.ntc_stock_res * exponential(val, 20);
+    }
+    set_switch_rezistor(channel, (uint32_t)rtd_app.resistance);
+}
+
+/**
+ * @brief NTC thermistor simulation on the channel of RTD_CHANNEL_SELECT.
+ * @param temp Temperature (°C).
  */
 void setNTC(float temp)
 {
-    rtd_app.temperature = (temp != 0.0f) ? temp : conf.rtd.temperature;
-
-    if (rtd_app.temperature >= -30.0f && rtd_app.temperature <= 200.0f)
-    {
-        float val = conf.rtd.ntc_beta *
-            (1.0f/(rtd_app.temperature + 273.15f) - 1.0f/(25.0f + 273.15f));
-
-        rtd_app.resistance = conf.rtd.ntc_stock_res * exponential(val, 20);
-        set_switch_rezistor((uint32_t)rtd_app.resistance);
-    }
+    RTD_SetChannelTemperature(conf.rtd.channel_select, 0u, temp);
 }
 
 /**
- * @brief Platinum RTD simulation.
- * @param temp Temperature (°C). If 0.0f, uses conf.rtd.temperature.
- * @note Uses linear approximation R = R0 * (1 + A*T).
+ * @brief Platinum RTD simulation on the channel of RTD_CHANNEL_SELECT.
+ * @param temp Temperature (°C).
  */
 void setPT(float temp)
 {
-    rtd_app.temperature = (temp != 0.0f) ? temp : conf.rtd.temperature;
-
-    if (rtd_app.temperature >= -30.0f && rtd_app.temperature <= 200.0f)
-    {
-        const float A = 3.91e-3f;
-        rtd_app.resistance = conf.rtd.pt_stock_res * (1.0f + A * rtd_app.temperature);
-        set_switch_rezistor((uint32_t)rtd_app.resistance);
-    }
+    RTD_SetChannelTemperature(conf.rtd.channel_select, 1u, temp);
 }
 
 /**
@@ -261,11 +270,11 @@ void tempSlewRate(uint8_t rtd_mode)
 
         if (rtd_app.tempSR <= conf.rtd.slewrate_max)
         {
-        	(rtd_mode) ? setPT(rtd_app.tempSR) : setNTC(rtd_app.tempSR);
+            (rtd_mode) ? setPT(rtd_app.tempSR) : setNTC(rtd_app.tempSR);
         }
         else
         {
-        	rtd_app.tempSR = conf.rtd.slewrate_max;
+            rtd_app.tempSR = conf.rtd.slewrate_max;
         }
     }
 }

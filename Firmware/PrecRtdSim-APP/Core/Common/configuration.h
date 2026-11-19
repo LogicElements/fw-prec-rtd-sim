@@ -50,10 +50,6 @@
 #define FACT_HW_REVISION    1001u   /* major=10?01, viz tvůj formát xxxyyy */
 #define FACT_BOOT_REVISION  1001u
 
-/* Firmware info */
-#define FIRM_REVISION       1u          /* 1..999 */
-#define FIRM_ASSEMBLY_INFO  20250330u   /* yyyymmdd (2025-03-30) */
-
 
 /* Macros --------------------------------------------------------------------*/
 

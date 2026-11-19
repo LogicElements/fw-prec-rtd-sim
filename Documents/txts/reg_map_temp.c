@@ -51,6 +51,11 @@ Status_t RegMap_RestoreFactoryValues(void)
   memcpy(&conf.fact, CONF_C_BOOTLOADER_OFFSET + (uint32_t)CONF_FW_INFO_OFFSET, sizeof(conf.fact));
 
 /* < REG MAP FACTORY > */
+  /* ---- Hard-coded FACT ---- */
+  conf.fact.serial_number = FACT_SERIAL_NUMBER;
+  conf.fact.device_id     = FACT_DEVICE_ID;
+  conf.fact.hw_revision   = FACT_HW_REVISION;
+  conf.fact.boot_revision = FACT_BOOT_REVISION;
 
   return ret;
 }

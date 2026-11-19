@@ -209,6 +209,36 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_RTD_SLEWRATE_MIN:
       *value = conf.rtd.slewrate_min;
       break;
+    case MB_HOLD_RTD_CHANNEL_MODE:
+      *value = conf.rtd.channel_mode;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH0:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch0);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH1:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch1);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH2:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch2);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH3:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch3);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH4:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch4);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH5:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch5);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH6:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch6);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH7:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch7);
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH8:
+      *value = (int16_t)(10 * conf.rtd.temperature_ch8);
+      break;
 
 
     default:
@@ -335,6 +365,46 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.rtd.slewrate_min = value;
       id = CONF_RTD_SLEWRATE_MIN;
       break;
+    case MB_HOLD_RTD_CHANNEL_MODE:
+      conf.rtd.channel_mode = (rtd_channel_mode_t)value;
+      id = CONF_RTD_CHANNEL_MODE;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH0:
+      conf.rtd.temperature_ch0 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH0;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH1:
+      conf.rtd.temperature_ch1 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH1;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH2:
+      conf.rtd.temperature_ch2 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH2;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH3:
+      conf.rtd.temperature_ch3 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH3;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH4:
+      conf.rtd.temperature_ch4 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH4;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH5:
+      conf.rtd.temperature_ch5 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH5;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH6:
+      conf.rtd.temperature_ch6 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH6;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH7:
+      conf.rtd.temperature_ch7 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH7;
+      break;
+    case MB_HOLD_RTD_TEMPERATURE_CH8:
+      conf.rtd.temperature_ch8 = ((float)((int16_t)value)) / 10;
+      id = CONF_RTD_TEMPERATURE_CH8;
+      break;
 
 
     default:
@@ -355,4 +425,3 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
 
 
 /** @} */
-

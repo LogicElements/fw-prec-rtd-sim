@@ -14,7 +14,7 @@ call :ConvertDecToHex %DEC_SN% HEX_SN
 set PATH=%PATH%;"C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility"
 start /b /wait ST-LINK_CLI.exe -c SWD -ME
 start /b /wait ST-LINK_CLI.exe -c SWD -P PrecRtdSim-BTL.bin 0x8000000 -V "after_programming"
-start /b /wait ST-LINK_CLI.exe -c SWD -P PrecRtdSim-APP-20231107-1.bin 0x8001000 -V "after_programming"
+start /b /wait ST-LINK_CLI.exe -c SWD -P PrecRtdSim-APP-20261120-2.bin 0x8001000 -V "after_programming"
 start /b /wait ST-LINK_CLI.exe -c SWD -w32 0x08000200 %HEX_SN% -HardRst
 
 Exit /B

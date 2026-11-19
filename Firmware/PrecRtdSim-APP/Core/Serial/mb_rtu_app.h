@@ -103,8 +103,18 @@
 #define MB_HOLD_RTD_SLEWRATE               114u
 #define MB_HOLD_RTD_SLEWRATE_MAX           115u
 #define MB_HOLD_RTD_SLEWRATE_MIN           116u
+#define MB_HOLD_RTD_CHANNEL_MODE           117u
+#define MB_HOLD_RTD_TEMPERATURE_CH0        118u
+#define MB_HOLD_RTD_TEMPERATURE_CH1        119u
+#define MB_HOLD_RTD_TEMPERATURE_CH2        120u
+#define MB_HOLD_RTD_TEMPERATURE_CH3        121u
+#define MB_HOLD_RTD_TEMPERATURE_CH4        122u
+#define MB_HOLD_RTD_TEMPERATURE_CH5        123u
+#define MB_HOLD_RTD_TEMPERATURE_CH6        124u
+#define MB_HOLD_RTD_TEMPERATURE_CH7        125u
+#define MB_HOLD_RTD_TEMPERATURE_CH8        126u
 
-#define MB_HOLD_LAST      116
+#define MB_HOLD_LAST      126
 
 
 /** @} */
@@ -142,4 +152,3 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value);
 
 #endif /* MB_RTU_APP_H_ */
 /** @} */
-
