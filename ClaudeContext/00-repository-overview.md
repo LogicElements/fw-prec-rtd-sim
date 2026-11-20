@@ -61,3 +61,7 @@ have DIP 1/2/3/4) - the stand tools / boot script initialise it.
 - The MAX7300 (channel 0) path still uses `HAL_MAX_DELAY` - not used on the stands.
 - The `FACT_*` registers are hard-coded (`configuration.h`), not taken from the bootloader block.
 - Several student comments are Czech; keep them when touching nearby code.
+- `Tests/prec-rtd-sim/ComSettings.json` (COM port) and `VisualSettings.json` (window, slave address) are tracked but
+  hold local settings - Ondřej's clone has them `git update-index --skip-worktree` (local only, not in the repo), so
+  git does not show them. A pull that changes them stops with "would be overwritten": `git update-index
+  --no-skip-worktree <files>`, stash, pull, pop, skip again.
