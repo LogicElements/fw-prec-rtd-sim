@@ -5,9 +5,9 @@
 - **State 2026-11-20:** FW 2 written, built (`Binary/PrecRtdSim-APP-20261120-2.bin`, 28424 B) and flashed over Modbus
   into the dhw-ng-maa emulator (verified: `FIRM_REVISION` 2, `FIRM_ASSEMBLY_INFO` 20261120, writes answered in 32 ms
   instead of ~2.2 s, TC023 test013 8/8 per channel twice, board re-init keeps 25.0 C).
-- **Committed locally** (4 commits on `main` + annotated tag `FW/2`, 2026-11-20), **not pushed**: the remote
-  `LogicElements/fw-prec-rtd-sim` (GitHub) refuses Ondřej's account (no write access). Push `main` + `FW/2` once
-  access is granted, or move the repo to a Jablotron remote (Ondřej's decision).
+- **Pushed** (`main` + annotated tag `FW/2`, 2026-11-20). The remote must use the SSH alias `github.com-ondyll`
+  (`git@github.com-ondyll:LogicElements/fw-prec-rtd-sim.git`, Ondřej's own GitHub account `ondyll`, which has write
+  access to LogicElements); plain `git@github.com:` logs in as his Wavin account, which LogicElements refuses for push.
 - **Open:** other stands with a Prec emulator need the same update (le and luo have the old LE emulators).
 
 ## What the device is
@@ -61,7 +61,5 @@ have DIP 1/2/3/4) - the stand tools / boot script initialise it.
 - The MAX7300 (channel 0) path still uses `HAL_MAX_DELAY` - not used on the stands.
 - The `FACT_*` registers are hard-coded (`configuration.h`), not taken from the bootloader block.
 - Several student comments are Czech; keep them when touching nearby code.
-- `Tests/prec-rtd-sim/ComSettings.json` (COM port) and `VisualSettings.json` (window, slave address) are tracked but
-  hold local settings - Ondřej's clone has them `git update-index --skip-worktree` (local only, not in the repo), so
-  git does not show them. A pull that changes them stops with "would be overwritten": `git update-index
-  --no-skip-worktree <files>`, stash, pull, pop, skip again.
+- `Tests/prec-rtd-sim/ComSettings.json` (COM port) and `VisualSettings.json` (window, slave address) are tracked with
+  Ondřej's values (COM3) - nobody else works on the repo any more.

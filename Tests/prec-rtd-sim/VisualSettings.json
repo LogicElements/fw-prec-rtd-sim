@@ -1,6 +1,6 @@
 ﻿{
-    "width": 807,
-    "height": 532,
+    "width": 923,
+    "height": 881,
     "slave_address": 33,
     "reg_map": "PrecRtdSim_Modbus.json",
     "attempts": 2,
