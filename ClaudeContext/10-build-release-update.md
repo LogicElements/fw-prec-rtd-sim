@@ -3,9 +3,11 @@
 ## Register map (workbook generator, headless)
 
 `Documents/PrecRtdSim.xlsm` (sheet `Registers`, rows from 18; `Common` = block / type / access codes). Its sheet
-buttons are ActiveX controls calling VBA functions that write into `Documents/txts/` and then copy to paths hardcoded
-for the original author - **on a PC with "Disable all ActiveX controls" (Ondřej's, 2026-11) they do nothing.**
-Use **`pwsh Documents\generate_regmap.ps1 [-Tools <jac-sw-dhw21x-tools>]`** instead: the same VBA functions through
+buttons (ActiveX) call VBA functions that write into `Documents/txts/` and copy to the destinations F8 (register map),
+F9 (Modbus), F10 (Tests) - all three relative to the workbook since 2026-11-20 (F9 / F10 held the original author's
+`C:\Users\evzen\...` paths: "Run-time error 76 Path not found"). The buttons need ActiveX allowed (Trust Center:
+"Prompt me before enabling UFI controls ... SFI controls with minimal restrictions") and the macros enabled.
+Without the buttons: **`pwsh Documents\generate_regmap.ps1 [-Tools <jac-sw-dhw21x-tools>]`** - the same VBA functions through
 Excel COM (`CreateDefineFile`, `CreateStorageFile`, `CreateFactoryFile`, `RegMap_Generate`, `CreateJsonFileModbus`,
 `CreatePythonClass`, `CreateJsonFileCSharp`), then copies `reg_map.*` -> `Core/Common`, `mb_rtu_app.*` ->
 `Core/Serial`, the JSON / Python maps -> `Tests/prec-rtd-sim` (and with `-Tools` the Modbus JSON to the tools repo;

@@ -10,7 +10,7 @@ Detailed context: [`ClaudeContext/index.md`](ClaudeContext/index.md) - read `00-
 ## Essentials
 
 - **Register map = the workbook `Documents/PrecRtdSim.xlsm`** - change it there, then `pwsh Documents\generate_regmap.ps1`
-  (its ActiveX buttons are inert where Office disables ActiveX); never hand-edit generated files - hand code goes into
+  or its sheet buttons (ActiveX - need ActiveX allowed); never hand-edit generated files - hand code goes into
   the templates `Documents/txts/*_temp.*`. Datasheet tables: `Tests/prec-rtd-sim/UpdateDatasheet.py`.
 - **Device id is 9153** (datasheet, bootloader, `FACT_DEVICE_ID`, `CONF_TARGET_DEVICE`). FW 1 had 2051 in the APP and
   the bootloader refused every Modbus update - keep them equal.
