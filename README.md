@@ -41,3 +41,8 @@ In order to use VisualModbus application, proceed as follows:
 
 
 
+
+# Further documentation
+
+ - [Contributing](CONTRIBUTING.md): toolchain, headless build, flashing, testing and agent skill setup.
+ - [Documentation index](docs/index.md): detailed docs on the device, build, register map, release and Modbus update.

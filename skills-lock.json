@@ -1,0 +1,194 @@
+{
+  "version": 2,
+  "skills": {
+    "code-review": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/code-review/SKILL.md",
+      "computedHash": "2776b5d31121083e6f60870409f60e191f1e558848b336f57e41d517bddc56cc"
+    },
+    "codebase-design": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/codebase-design/SKILL.md",
+      "computedHash": "721a6a709001482b70d4ecd3a7880a84ec158170236b999b1f14a8a321e20059"
+    },
+    "diagnosing-bugs": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/diagnosing-bugs/SKILL.md",
+      "computedHash": "801a4ae3b063c0d675705633772faaa724ba2acdd72a965e8525a21dbc2b3ab9"
+    },
+    "domain-modeling": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/domain-modeling/SKILL.md",
+      "computedHash": "b78689833404148c769077355e12dbe5ad996a158a1e21e58ddf169e439d9d8c"
+    },
+    "grill-me": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/grill-me/SKILL.md",
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9"
+    },
+    "grill-with-docs": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/grill-with-docs/SKILL.md",
+      "computedHash": "02e258f41d210f9b2e7cce9faf62b3c59e8fcebe5d2736369c3cd07d471324f8"
+    },
+    "grilling": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/grilling/SKILL.md",
+      "computedHash": "7e2b96501235f1cbfb2a8dad79cb89d40272004822a0ec461923a5b3a6606f87"
+    },
+    "implement": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/implement/SKILL.md",
+      "computedHash": "125de9503b6d2aec4eb4b5bbcdeadf7b68edd305a367dc5a14e08c543babd2ab"
+    },
+    "implement-spec": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/implement-spec/SKILL.md",
+      "computedHash": "3aa684ea42bfe136e4c6c63f7349214b2bb974c2e949f3532a11df796e0f1146"
+    },
+    "improve-codebase-architecture": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/improve-codebase-architecture/SKILL.md",
+      "computedHash": "5334eba3370c6124922f8819447b42fabd8df8d11008a242083b8527589a8686"
+    },
+    "ja-ai-watermark": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/jablotron/ja-ai-watermark/SKILL.md",
+      "computedHash": "468e927c76ae04b57927a665f5782384e612780089149c6360e9552b0909c2a6"
+    },
+    "ja-behavior-and-design-documentation": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/jablotron/ja-behavior-and-design-documentation/SKILL.md",
+      "computedHash": "cb0a7419df319b26b5483d696480bd83501637eedd426136ffcfca5c2b20cd20"
+    },
+    "ja-commit": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/jablotron/ja-commit/SKILL.md",
+      "computedHash": "f9543c40243e020b731b5cb561be05ed294602bcdf8cb6a8bdfe946ecb9d9ff9"
+    },
+    "ja-repo-setup": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/jablotron/ja-repo-setup/SKILL.md",
+      "computedHash": "0fc8fa9d64d23c8d09eeda67507b98d196294b4e856bc97d3d3c73cbf5bfc5f6"
+    },
+    "prototype": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/prototype/SKILL.md",
+      "computedHash": "1e3ba2202a5b77b8aa50bc4447432331d6e42590e53ec0935689662cfed199ca"
+    },
+    "research": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/research/SKILL.md",
+      "computedHash": "5bd6a6b833227dd87ee023c2d4734f4c349f290140514bb80bdc041ead1e837e"
+    },
+    "tdd": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/tdd/SKILL.md",
+      "computedHash": "87a9905ad75237faf9d320bd8ca4b2b238c71c62ef20b057f8a42c08baf7889e"
+    },
+    "to-spec": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/to-spec/SKILL.md",
+      "computedHash": "eb934b5eda9523c7853a2741544bd4721ee1bea471f5a04f8397827f67bdbdda"
+    },
+    "to-tickets": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/to-tickets/SKILL.md",
+      "computedHash": "67fcce10b73648e720857e0035335523734755778f79ff0c66652e8a4046d887"
+    },
+    "wayfinder": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/wayfinder/SKILL.md",
+      "computedHash": "c08f90c742637b3104c044e4889929664f64534af34b06c94134afdd248b3b64"
+    },
+    "writing-for-agents": {
+      "source": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "sourceUrl": "git@gitlab.jablotron.cloud:ai/jablotron-skills.git",
+      "ref": "v0.2.0",
+      "commit": "8d3c59f6d6d481f74672def9e10e4336e2cb38e5",
+      "sourceType": "git",
+      "skillPath": "skills/upstream/writing-for-agents/SKILL.md",
+      "computedHash": "e79a2476b2417b228922453478d9505a6b9af19f3a412e560728ce62ed3555ca"
+    }
+  }
+}

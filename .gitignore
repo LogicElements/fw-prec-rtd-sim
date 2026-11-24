@@ -17,3 +17,7 @@ Documents/txts/*
 
 # Virtual python
 venv/
+
+# Agent skills installer artifacts (generated)
+/.agents/
+/.claude/skills/
