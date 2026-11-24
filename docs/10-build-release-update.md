@@ -21,9 +21,9 @@ workbook read-only; edit rows in Excel first. Verified 2026-11-20: reproduces th
 
 ## Build (headless STM32CubeIDE 1.19.0)
 
-Work-folder script `build_prec.sh [Debug|Release] [build|clean]`: `stm32cubeidec.exe -application
+Command: `stm32cubeidec.exe -application
 org.eclipse.cdt.managedbuilder.core.headlessbuild -data <scratch ws> -import file:/<repo>/Firmware/PrecRtdSim-APP
--build PrecRtdSim-APP/Debug`, `LOCALAPPDATA` in the work folder, `unset NoDefaultCurrentDirectoryInExePath`.
+-build PrecRtdSim-APP/Debug`, `LOCALAPPDATA` set to a scratch folder, `unset NoDefaultCurrentDirectoryInExePath`.
 `Debug` is `-Os` and has the post-build step `../BinBuild.exe 6 ${ProjName}.bin <FW version>` (`Release` is `-Og`
 and has none). Output `Debug/PrecRtdSim-APP-<yyyymmdd>-<version>.bin` (folder git-ignored). The only linker warning
 (RWX LOAD segment) is old. APP limit 28672 B.
@@ -40,7 +40,7 @@ copies words 0-1 into `FIRM_*` at boot.
 1. Raise the post-build version argument in `.cproject` (FW 2 -> next 3).
 2. Build, copy `Debug/PrecRtdSim-APP-<date>-<version>.bin` to `Binary/`, point `Binary/STLink-program.bat` at it
    (keep its CRLF).
-3. Update the stand devices (ask Ondřej first) and verify (`FIRM_*`, TC023 test013).
+3. Update the stand devices (ask the stand owner first) and verify (`FIRM_*`, TC023 test013).
 4. Commit when asked; tag `FW/<N>` like the other tool FW repos.
 
 ## Device update over Modbus (stand)
@@ -49,4 +49,4 @@ Tools repo `StandRemoteTool/update_tool_fw.py --check|--flash RtdEmulPrec=/tmp/<
 Remote Tool's "Update FW" code; stop the listener first). `StandRemoteRtdEmulPrec`: `FW_BINARY_TYPE = 2051` (FW 1
 accepts only that; FW 2 also 9153), `FW_MODE = 1` (the APP's page callback only programs; the 28 kB erase fits the
 3 s IWDG). After the update the device reboots into its power-up state (mode 0) - the tests / tools re-initialise it.
-FW 1 -> FW 2 on dhw-ng-maa 2026-11-20: done and verified.
+FW 1 -> FW 2 on the test stand 2026-11-20: done and verified.
